@@ -1,13 +1,8 @@
 import styled from 'styled-components';
+import Home from '../components/Home'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <example>Medicare Front_end</example>
-    
+    <Home />
   )
 }
-
-
-const example = styled.h1`
-color: red;
-`;
