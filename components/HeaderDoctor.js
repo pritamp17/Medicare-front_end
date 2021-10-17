@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function HeaderDoctor() {
-    return (
-        <div>
-            
-        </div>
-    )
+  return <div></div>;
 }
 
-export default HeaderDoctor
+export default HeaderDoctor;
