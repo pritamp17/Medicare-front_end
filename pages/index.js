@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Login from "../components/Login";
-import Home from "../components/Home";
+import HomePage from "../components/HomePage";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
     <Login type="Patient" signUpLink='patients/signUp' />
     <Login type="Doctor" signUpLink='doctors/signUp'/>
   </Wrapper>*/}
-      <Home />
+      <HomePage />
     </>
   );
 }

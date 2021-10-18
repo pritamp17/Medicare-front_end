@@ -1,29 +1,12 @@
 import * as React from "react";
-import { Navbar, Nav, Container, Button, Card, Row, Col } from "react-bootstrap";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import {Container, Button, Card, Row, Col } from "react-bootstrap";
+import Header from '../components/Header'
 
-const Home = () => (
+const HomePage = () => (
+
   <React.Fragment>
-    <Navbar collapseOnSelect expand="lg" bg="danger" variant="dark">
-      <Container>
-        <Navbar.Brand href="/" className="fw-bold fs-3">
-          <LocalHospitalIcon color="success" fontSize="large" className="mx-1" />
-          Medicare
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav>
-            <Button variant="outline-primary" className="mx-2 text-white" color="black" href="/doctos">
-              Continue as a Doctor
-            </Button>
-            <Button variant="outline-primary" className="mx-2 text-white" href="/patients">
-              Continue as a Patient
-            </Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+
+    <Header id='0'/>
 
     <Container>
       <cite className="text-center">
@@ -50,7 +33,7 @@ const Home = () => (
               <Card.Text className="text-center">
                 <cite>Learn about our trusted care.</cite>
               </Card.Text>
-              <Button variant="primary" className="text-center" href="/patients">
+              <Button variant="primary" className="text-center" href="/patients/signUp">
                 Start as a Patient
               </Button>
             </Card.Body>
@@ -70,7 +53,7 @@ const Home = () => (
               <Card.Text className="text-center">
                 <cite>Grow with us as an employee.</cite>
               </Card.Text>
-              <Button variant="primary" className="text-center" href="/doctors">
+              <Button variant="primary" className="text-center" href="/doctors/signUp">
                 Start as a Doctor
               </Button>
             </Card.Body>
@@ -80,4 +63,4 @@ const Home = () => (
     </Container>
   </React.Fragment>
 );
-export default Home;
+export default HomePage;
