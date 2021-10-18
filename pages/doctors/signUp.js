@@ -1,12 +1,11 @@
 import { Card, Col, FloatingLabel, Form, Row, Button } from "react-bootstrap";
 import styled from "styled-components";
+import Header from '../../components/Header'
 
 function signUp() {
   return (
     <>
-      <div>
-        <p></p>
-      </div>
+      <Header id='1'/>
       <wrapper>
         <Card style={{ width: "80rem" }} bg="light" border="dark" text="dark">
           <Form>
