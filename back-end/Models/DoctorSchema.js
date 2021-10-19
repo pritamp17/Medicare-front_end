@@ -1,7 +1,7 @@
-const moongose = require("mongoose");
-const Review = require("./ReviewSchema")
+const mongoose = require("mongoose");
+const Review = require("./ReviewSchema");
 
-const doctor = new moongose.Schema(
+const doctor = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -46,12 +46,14 @@ const doctor = new moongose.Schema(
     profile_pic: {
       type: String,
     },
-    patient_treated: [{
-      type: String,
-    }],
-    reviews: [Review.Schema],
+    patient_treated: [
+      {
+        type: String,
+      },
+    ],
+    reviews: [{ type: String }],
   },
   { timestamps: true }
 );
 
-export default moongose.model("Doctor", doctor);
+module.exports = mongoose.model("Doctor", doctor);
