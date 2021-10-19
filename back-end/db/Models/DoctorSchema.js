@@ -1,7 +1,8 @@
-const moongose = require("mongoose");
+const Schema = require("mongoose");
+const model = require("mongoose");
 const Review = require("./ReviewSchema")
 
-const doctor = new moongose.Schema(
+const doctor = new Schema(
   {
     email: {
       type: String,
@@ -54,4 +55,4 @@ const doctor = new moongose.Schema(
   { timestamps: true }
 );
 
-export default moongose.model("Doctor", doctor);
+export default model("Doctor", doctor);
