@@ -1,6 +1,7 @@
-import { Schema, model } from "mongoose";
+const mongoose = require("mongoose");
+// const model = require("mongoose");
 
-const review = new Schema(
+const review = new mongoose.Schema(
   {
     rating: {
       type: Number,
@@ -12,4 +13,4 @@ const review = new Schema(
   { timestamps: true }
 );
 
-export default model("Review", review);
+module.exports = mongoose.model("Review", review);

@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const Schema = require("mongoose");
+const model = require("mongoose");
 
-
-const patient = new mongoose.Schema(
+const patient = new Schema(
   {
     email: {
       type: String,
@@ -41,4 +41,4 @@ const patient = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Patient", patient);
+export default model("Patient", patient);
