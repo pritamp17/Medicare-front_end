@@ -22,14 +22,17 @@ const doctor = new mongoose.Schema(
     gender: {
       type: String,
     },
-    street: {
+    address: {
       type: String,
     },
-    district: {
+    city: {
       type: String,
     },
     state: {
       type: String,
+    },
+    zip: {
+      type: Number,
     },
     mobile: {
       type: Number,
