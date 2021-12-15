@@ -32,6 +32,9 @@ const doctor = new Schema(
     state: {
       type: String,
     },
+    zip:{
+      type: Number,
+    },
     mobile: {
       type: Number,
     },
