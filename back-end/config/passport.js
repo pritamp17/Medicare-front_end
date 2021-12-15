@@ -16,6 +16,9 @@ const init = (passport) => {
         if (!user) {
           return done(null, false, { message: "Incorrect email" });
         }
+        if (!user.isVerified) {
+          return done(null, false, { message: "Email not verified" });
+        }
         try {
           //comparing the password
           bcrypt.compare(password, user.password).then((match) => {
@@ -42,6 +45,9 @@ const init = (passport) => {
         }
         if (!user) {
           return done(null, false, { message: "Incorrect email" });
+        }
+        if (!user.isVerified) {
+          return done(null, false, { message: "Email not verified" });
         }
         try {
           //comparing the password
