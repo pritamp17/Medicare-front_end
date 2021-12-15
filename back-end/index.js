@@ -4,8 +4,12 @@ const cors = require("cors");
 const mongoClient = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
+const Doctor = require("./Models/DoctorSchema");
+const Patient = require("./Models/PatientSchema");
+var ipInfo = require("ip-info-finder");
 
 require("dotenv").config();
+
 
 ///app configs
 const app = express();
@@ -60,5 +64,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => res.status(200).send("hello world"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
+
+// **** doctor search 
+
+app.get("/doctors", (req, res) => {
+
+  const ipAddres = request.connection.remoteAddress;
+    // console.log(idAddress);
+    ipInfo.getIPInfo(ipAddres).then(data => {
+      // console.log(data);
+      const zipcode = data[Object.keys(data)[Object.keys(data).length - 1]]
+  })
+  .catch(err => console.log(err));
+
+  // const stripedzip = zipcode.substring(0,zipcode.length-1)
+  const zip = parseInt(zipcode);
+
+  const result = res.map((data) => {
+    if(abs(data.zip - zip )< 10){
+      {
+        doctor: data.name;
+        gender: data.gender;
+        specialisation: data.specialisation;
+        work_experience: data.work_experience;
+        reviews: data.reviews;
+      }
+    }
+  });
+
+// console.log(result);
+});
 
 app.listen(port, () => console.log(` listening on localhost:${port}`));
