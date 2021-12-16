@@ -31,12 +31,8 @@ const patient = new mongoose.Schema(
     profile_pic: {
       type: String,
     },
-    doctors_attended: [
-      {
-        type: String,
-      },
-    ],
-    test_reports: [{ type: String }],
+    test_id: [{ type: String }],
+    appointments: [{ type: String }],
   },
   { timestamps: true }
 );
