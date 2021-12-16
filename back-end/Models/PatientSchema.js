@@ -8,7 +8,7 @@ const patient = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
+    password: { 
       type: String,
       required: true,
     },
@@ -30,6 +30,21 @@ const patient = new mongoose.Schema(
     },
     profile_pic: {
       type: String,
+    },
+    Address:{
+      type:String,
+    },
+    Address1:{
+      type:String,
+    },
+    city:{
+      type:String,
+    },
+    state:{
+      type:String,
+    },
+    zip:{
+      type:Number,
     },
     doctors_attended: [
       {
