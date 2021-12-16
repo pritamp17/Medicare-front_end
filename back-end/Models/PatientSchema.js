@@ -31,6 +31,8 @@ const patient = new mongoose.Schema(
     profile_pic: {
       type: String,
     },
+    test_id: [{ type: String }],
+    appointments: [{ type: String }],
     Address:{
       type:String,
     },
@@ -46,11 +48,6 @@ const patient = new mongoose.Schema(
     zip:{
       type:Number,
     },
-    doctors_attended: [
-      {
-        type: String,
-      },
-    ],
     test_reports: [{ type: String }],
   },
   { timestamps: true }
