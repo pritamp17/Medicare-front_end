@@ -1,8 +1,59 @@
+import { useState } from "react";
 import { Card, Col, FloatingLabel, Form, Row, Button, Container } from "react-bootstrap";
 import styled from "styled-components";
 import Header from "../../components/Header";
-
+import axios from '../api/BaseApi'
 function signUp() {
+
+  const [Email, setEmail] = useState('')
+  const [Password, setPassword] = useState('')
+  const [Name, setName] = useState('')
+  const [mobile, setMobile] = useState()
+  const [workexp, setWorkExp] = useState('')
+  const [Specialization, setSpecialization] = useState('')
+  const [proof, setProof] = useState('')
+  const [adress, setAdress] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [zip, setZip] = useState()
+  const [Gender, setGender] = useState('') 
+  const [photo, setPhoto] = useState('')
+
+    const sendMessage = async (e) => {
+        e.preventDefault();
+
+        await axios.post('/doctor/new',{
+            email: Email ,
+            password: Password,
+            name: Name,
+            gender: Gender,
+            address: adress,
+            city: city,
+            state: state,
+            zip: zip,
+            specialisation: Specialization,
+            work_experience: workexp,
+            proof_of_experience: proof,
+            profile_pic: photo,
+            mobile: mobile
+
+        });
+
+        setEmail('');
+        setPassword('');
+        setName('');
+        setMobile();
+        setWorkExp('')
+        setSpecialization('')
+        setProof('')
+        setAdress('')
+        setCity('')
+        setState('')
+        setZip()
+        setGender('')
+        setPhoto('')
+    }
+
   return (
     <>
       <Header id="1" />
@@ -11,66 +62,67 @@ function signUp() {
           <Form className="my-5">
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Label >Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)}/>
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
               </Form.Group>
             </Row>
 
             <Row classname="mb-3">
               <Form.Group className="mb-3" as={Col} controlId="formGridPassword">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Name" />
+                <Form.Control type="text" placeholder="Name" onChange={e => setName(e.target.value)}/>
               </Form.Group>
               <Form.Group className="mb-3" as={Col} controlId="formGridPassword">
                 <Form.Label>Mobile Number</Form.Label>
-                <Form.Control type="mobile" placeholder="Mobile Number" />
+                <Form.Control type="mobile" placeholder="Mobile Number" onChange={e => setMobile(e.target.value)}/>
               </Form.Group>
             </Row>
 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label> Work Experience </Form.Label>
-                <Form.Control type="email" placeholder="Work Experience" />
+                <Form.Control type="email" placeholder="Work Experience" onChange={e => setWorkExp(e.target.value)}/>
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Specialization</Form.Label>
-                <Form.Control type="password" placeholder="Specialization" />
+                <Form.Control type="password" placeholder="Specialization" onChange={e => setSpecialization(e.target.value)}/>
               </Form.Group>
             </Row>
 
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Please Upload proof of Specialization in PDF format</Form.Label>
-              <Form.Control type="file" size="sm" />
+              <Form.Control type="file" size="sm" onChange={e => setProof(e.target.value)}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridAddress1">
               <Form.Label>Address</Form.Label>
-              <Form.Control placeholder="1234 Main St" />
+              <Form.Control placeholder="1234 Main St"  onChange={e => setAdress(e.target.value)}/>
             </Form.Group>
 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>City</Form.Label>
-                <Form.Control />
+                <Form.Control onChange={e => setCity(e.target.value)}/>
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>State</Form.Label>
-                <Form.Select defaultValue="Choose...">
+                {/* <Form.Select defaultValue="Choose...">
                   <option>Choose...</option>
                   <option>...</option>
-                </Form.Select>
+                </Form.Select> */}
+                <Form.Control onChange={e => setState(e.target.value)}/>
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridZip">
                 <Form.Label>Zip</Form.Label>
-                <Form.Control />
+                <Form.Control onChange={e => setZip(e.target.value)}/>
               </Form.Group>
             </Row>
 
@@ -85,10 +137,10 @@ function signUp() {
 
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Choose Profile Photo</Form.Label>
-              <Form.Control type="file" size="sm" />
+              <Form.Control type="file" size="sm" onChange={e => setPhoto(e.target.value)}/>
             </Form.Group>
           </Form>
-          <Button variant="primary" type="submit" className="md-3">
+          <Button variant="primary" type="submit" className="md-3" onClick={sendMessage}>
             Sign Me Up
           </Button>
         </Container>
