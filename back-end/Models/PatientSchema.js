@@ -8,7 +8,7 @@ const patient = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
+    password: { 
       type: String,
       required: true,
     },
@@ -33,6 +33,22 @@ const patient = new mongoose.Schema(
     },
     test_id: [{ type: String }],
     appointments: [{ type: String }],
+    Address:{
+      type:String,
+    },
+    Address1:{
+      type:String,
+    },
+    city:{
+      type:String,
+    },
+    state:{
+      type:String,
+    },
+    zip:{
+      type:Number,
+    },
+    test_reports: [{ type: String }],
   },
   { timestamps: true }
 );
