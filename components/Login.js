@@ -6,7 +6,7 @@ import styled from "styled-components";
 function Login(props) {
   return (
     <>
-      <div>
+      {/* <div>
         <Card style={{ width: "20rem" }} bg="light" border="dark" text="dark">
           <Card.Body>
             <Form>
@@ -29,7 +29,9 @@ function Login(props) {
             New Account Register Here!
           </Button>
         </Card>
-      </div>
+      </div> */}
+      
+
     </>
   );
 }
