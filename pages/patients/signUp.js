@@ -21,7 +21,7 @@ function signUp() {
     const sendMessage = async (e) => {
         e.preventDefault();
 
-        await axios.post('/patient/new',{
+        await axios.post('/signup/patient',{
             email: Email ,
             password: Password,
             name: Name,
@@ -69,7 +69,7 @@ function signUp() {
               </Form.Group>
             </Row>
 
-            <Row classname="mb-3">
+            <Row className="mb-3">
               <Form.Group className="mb-3" as={Col} controlId="formGridPassword">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Name" onChange={e => setName(e.target.value)} />
