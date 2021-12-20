@@ -19,25 +19,63 @@ function signUp() {
   const [Gender, setGender] = useState('') 
   const [photo, setPhoto] = useState('')
 
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setProof(e.target.files[0])
+    }
+}
+
     const sendMessage = async (e) => {
         e.preventDefault();
 
-        await axios.post('/doctor/new',{
-            email: Email ,
-            password: Password,
-            name: Name,
-            gender: Gender,
-            address: adress,
-            city: city,
-            state: state,
-            zip: zip,
-            specialisation: Specialization,
-            work_experience: workexp,
-            proof_of_experience: proof,
-            profile_pic: photo,
-            mobile: mobile
+        if (proof) {
+          const imgForm = new FormData()
+          imgForm.append('file', image, image.name)
 
-        });
+          await axios.post('/upload/image', imgForm,{
+              headers: {
+                  'accept': 'applications/json',
+                  'Accept-Language': 'en-US,en;q=0.8',
+                  'Content-Type':'multipart/form-data; boundary=${imgForm._boundary}',
+              }
+          }).then((res) => {
+
+            await axios.post('/doctor/new',{
+              email: Email ,
+              password: Password,
+              name: Name,
+              gender: Gender,
+              address: adress,
+              city: city,
+              state: state,
+              zip: zip,
+              specialisation: Specialization,
+              work_experience: workexp, 
+              proof_of_experience: proof,
+              profile_pic: photo,
+              mobile: mobile
+  
+          });
+            
+          })
+
+          
+        // await axios.post('/doctor/new',{
+        //     email: Email ,
+        //     password: Password,
+        //     name: Name,
+        //     gender: Gender,
+        //     address: adress,
+        //     city: city,
+        //     state: state,
+        //     zip: zip,
+        //     specialisation: Specialization,
+        //     work_experience: workexp,
+        //     proof_of_experience: proof,
+        //     profile_pic: photo,
+        //     mobile: mobile
+
+        // });
 
         setEmail('');
         setPassword('');
@@ -96,8 +134,8 @@ function signUp() {
             </Row>
 
             <Form.Group controlId="formFileSm" className="mb-3">
-              <Form.Label>Please Upload proof of Specialization in PDF format</Form.Label>
-              <Form.Control type="file" size="sm" onChange={e => setProof(e.target.value)}/>
+              <Form.Label>Please Upload proof of Specialization </Form.Label>
+              <Form.Control type="file" size="sm" onChange={e => setProof(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridAddress1">
@@ -137,7 +175,7 @@ function signUp() {
 
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Choose Profile Photo</Form.Label>
-              <Form.Control type="file" size="sm" onChange={e => setPhoto(e.target.value)}/>
+              <Form.Control type="file" size="sm" onChange={handleChange} />
             </Form.Group>
           </Form>
           <Button variant="primary" type="submit" className="md-3" onClick={sendMessage}>

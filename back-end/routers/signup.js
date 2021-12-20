@@ -2,9 +2,13 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const signup = express.Router();
 const Doctor = require("../Models/DoctorSchema");
-const Patient = require("../Models/PatientSchema");
+const Patient = require("../Models/PatientSchema"); 
 const mailer = require("../misc/mailer");
- 
+const Grid = require('gridfs-stream');
+const multer = require('multer')
+const {GridFsStorage} = require('multer-gridfs-storage');
+const mongoose = require("mongoose");
+
 signup.post("/doctor", async (req, res) => {
   const dbPost = req.body;
   console.log(req.body);
@@ -54,19 +58,22 @@ signup.post("/doctor/new", async (req, res) => {
     }) 
 });
 
-signup.post("/patient/new", async (req, res) => {
-  const newPat = req.body;
-
-  Patient.create(newPat, (err, data) =>{
-        if(err){
-            res.sendStatus(500).send(err)
-        }else{
-            res.send(data)
-        }
-    }) 
-});
+// signup.post("/patient/new", async (req, res) => {
+//   const newPat = req.body;
+//  console.log(newPat);
+//   Patient.create(newPat, (err, data) =>{
+//         if(err){
+//             res.sendStatus(500).send(err)
+//         }else{
+//             res.send(data)
+//         }
+//     })
+     
+// });
 
 //////////////////
+
+
 
 signup.post("/patient", async (req, res) => {
   const dbPost = req.body;

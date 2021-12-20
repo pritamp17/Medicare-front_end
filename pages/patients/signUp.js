@@ -1,3 +1,5 @@
+import * as axios from 'axios';
+
 import { useState } from "react";
 import { Card, Col, FloatingLabel, Form, Row, Button, Container } from "react-bootstrap";
 import styled from "styled-components";
@@ -18,38 +20,99 @@ function signUp() {
   const [state, setState] = useState('')
   const [zip, setZip] = useState()
 
-    const sendMessage = async (e) => {
-        e.preventDefault();
-
-        await axios.post('/patient/new',{
-            email: Email ,
-            password: Password,
-            name: Name,
-            age: age,
-            profile_pic: photo,
-            mobile: mobile,
-            gender:Gender,
-            Address:Address,
-            Address1:Address1,
-            city:city,
-            state:state,
-            zip:zip
-        });
-
-        setEmail('');
-        setPassword('');
-        setName('')
-        setName('');
-        setMobile();
-        setGender('')
-        setPhoto('')
-        setAge('')
-        setAddress('')
-        setAddress1('')
-        setCity('')
-        setState('')
-        setZip('')
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0])
     }
+}
+
+
+
+const sendMessage = async (e) => {
+  e.preventDefault();
+  // console.log(hii);
+  // if (photo != null) {
+  //   const imgForm = new FormData()
+  //   imgForm.append('file', photo, photo.name)
+
+  //   await axios.post('patient/upload/image', imgForm,{
+  //       // headers: {
+  //       //     'accept': 'applications/json',
+  //       //     'Accept-Language': 'en-US,en;q=0.8',
+  //       //     'Content-Type':'multipart/form-data; boundary=${imgForm._boundary}',
+  //       // }
+
+  const postData = {
+    email: Email ,
+    password: Password,
+    name: Name,
+    age: age,
+    profile_pic: "",
+    mobile: mobile,
+    gender:Gender,
+    Address:Address,
+    Address1:Address1,
+    city:city,
+    state:state,
+    zip:zip
+  }
+  console.log(postData);
+  savePost(postData)
+  
+    // )
+    // .then((res) => {
+
+    //   console.log(res.data);
+
+    //             const postData = {
+    //               email: Email ,
+    //               password: Password,
+    //               name: Name,
+    //               age: age,
+    //               profile_pic: photo,
+    //               mobile: mobile,
+    //               gender:Gender,
+    //               Address:Address,
+    //               Address1:Address1,
+    //               city:city,
+    //               state:state,
+    //               zip:zip
+    //             }
+    //             console.log(postData);
+    //             savePost(postData)
+    //         })
+
+      
+      
+    // })
+// }
+    setEmail('');
+    setPassword('');
+    setName('')
+    setName('');
+    setMobile();
+    setGender('')
+    setPhoto('')
+    setAge('')
+    setAddress('')
+    setAddress1('')
+    setCity('')
+    setState('')
+    setZip('')
+}
+
+
+const savePost = async (postData)=> {
+  await axios.post('http://localhost:9000/signup/patient', postData,{ headers: {
+    'accept': 'applications/json',
+     'Accept-Language': 'en-US,en;q=0.8',
+     "Access-Control-Allow-Origin": "http://localhost:3000"
+  }})
+  .then((res)=> {
+      console.log(res);
+  })
+
+}
 
   return (
     <>
@@ -69,7 +132,7 @@ function signUp() {
               </Form.Group>
             </Row>
 
-            <Row classname="mb-3">
+            <Row className="mb-3">
               <Form.Group className="mb-3" as={Col} controlId="formGridPassword">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Name" onChange={e => setName(e.target.value)} />
@@ -123,7 +186,7 @@ function signUp() {
 
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Choose Profile Photo</Form.Label>
-              <Form.Control type="file" size="sm"  onChange={e => setPhoto(e.target.value)} />
+              <Form.Control type="file" size="sm"  onChange={handleChange} />
             </Form.Group>
           </Form>
           <Button variant="primary" type="submit" className="md-3" onClick={sendMessage}>
