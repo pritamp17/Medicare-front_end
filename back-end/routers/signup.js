@@ -18,7 +18,7 @@ signup.post("/doctor", async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     dbPost.password = hashedPassword;
-
+    res.header("Access-Control-Allow-Methods", "HEAD, GET, POST, PUT, PATCH, DELETE");
     Doctor.create(dbPost, (err, data) => {
       if (err) {
         res.status(500).send(err);
@@ -70,6 +70,7 @@ signup.post("/patient/new", async (req, res) => {
 
 signup.post("/patient", async (req, res) => {
   const dbPost = req.body;
+
   console.log(req.body);
 
   //Check if email exists
@@ -84,7 +85,7 @@ signup.post("/patient", async (req, res) => {
 
     Patient.create(dbPost, (err, data) => {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).redirect("/patients/signup");
       } else {
         const link = "http://localhost:9000/signup/patient/verify/" + hashedPassword;
         const html =
@@ -98,7 +99,8 @@ signup.post("/patient", async (req, res) => {
           `>Click here to verify</a>`;
 
         mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Please verify your email", html);
-        res.status(201).send(data);
+        res.status(201);
+        res.redirect('/');
       }
     });
   }
