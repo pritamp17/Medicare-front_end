@@ -20,11 +20,8 @@ function signUp() {
   const [state, setState] = useState('')
   const [zip, setZip] = useState()
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setPhoto(e.target.files[0])
-    }
-}
+
+
 
 
 

@@ -28,39 +28,10 @@ function signUp() {
 
     const sendMessage = async (e) => {
         e.preventDefault();
-
-        // if (proof) {
-        //   const imgForm = new FormData()
-        //   imgForm.append('file', image, image.name)
-
-        //   await axios.post('/upload/image', imgForm,{
-        //       headers: {
-        //           'accept': 'applications/json',
-        //           'Accept-Language': 'en-US,en;q=0.8',
-        //           'Content-Type':'multipart/form-data; boundary=${imgForm._boundary}',
-        //       }
-          // }).then((res) => {
-
-          //   await axios.post('http://localhost:9000/signup/doctor',{
-              // email: Email ,
-              // password: Password,
-              // name: Name,
-              // gender: Gender,
-              // address: adress,
-              // city: city,
-              // state: state,
-              // zip: zip,
-              // specialisation: Specialization,
-              // work_experience: workexp, 
-              // proof_of_experience: "",
-              // profile_pic: "",
-              // mobile: mobile
-  
-          // });
-            
-          // })
          
           const postData = {
+
+        await axios.post('/signup/doctor',{
             email: Email ,
             password: Password,
             name: Name,
@@ -133,7 +104,7 @@ function signUp() {
               </Form.Group>
             </Row>
 
-            <Row classname="mb-3">
+            <Row className="mb-3">
               <Form.Group className="mb-3" as={Col} controlId="formGridPassword">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" placeholder="Name" onChange={e => setName(e.target.value)}/>
