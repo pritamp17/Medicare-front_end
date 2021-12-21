@@ -7,6 +7,10 @@ const passport = require("passport");
 const Doctor = require("./Models/DoctorSchema");
 const Patient = require("./Models/PatientSchema");
 var ipInfo = require("ip-info-finder");
+const Grid = require('gridfs-stream');
+const multer = require('multer')
+const {GridFsStorage} = require('multer-gridfs-storage');
+// const upload = require("./routers/upload");
 
 require("dotenv").config();
 
@@ -14,6 +18,7 @@ require("dotenv").config();
 ///app configs
 const app = express();
 const port = process.env.PORT || 9000;
+
 
 ///////// db  connectionn configs
 const connection_url = process.env.MONGO_URL;
@@ -38,13 +43,19 @@ mongoClient.connect(
     }
   }
 );
-conn.once("open", () => {
-  console.log("DB connected");
-});
 
+let gfs;
 const db = mongoClient.connection;
 db.once("open", () => {
   console.log("DB connected");
+
+});
+
+conn.once("open", () => {
+  // console.log("DB connected");
+  
+  gfs = Grid(conn.db, mongoClient.mongo)
+    gfs.collection('images') 
 });
 
 /// middlewares
@@ -58,13 +69,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "HEAD, GET, POST, PUT, PATCH, DELETE")
+  next();
+});
+
 
 //////////////////// API Routes
 
 app.get("/", (req, res) => res.status(200).send("hello world"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
-
+// app.use("/file", upload);
 // **** doctor search 
 
 app.get("/doctors", (req, res) => {
@@ -94,5 +112,67 @@ app.get("/doctors", (req, res) => {
 
 // console.log(result);
 });
+
+///// for adding images ///////////
+Grid.mongo = mongoClient.mongo;
+
+const storage = new GridFsStorage({
+  url:connection_url,
+  file: (req,file)=>{
+      return new Promise((resolve, reject)=>{{
+         const filename = `image-${Date.now()}${path.extname(file.originalname)}`
+         
+         const fileInfo={
+             filename:filename,
+             bucketName: 'images'
+         }
+         resolve(fileInfo)
+         }
+     })
+  }
+});
+
+const upload = multer({ storage })
+
+app.get('/patient/upload/:filename',(req,res)=>{
+  gfs.files.findOne({filename: req.query.name},(err, file)=>{
+      if (err) {
+          res.status(500).send(err)
+      } else {
+          if (!file || file.length ===0 ) {
+              res.status(404).json({err:'file not found'})
+          } else {
+              const readstream = gfs.createReadStream(file.filename);
+              readstream.pipe(res);
+          }
+          
+      }
+  })
+})
+
+app.post('/doctor/upload',upload.single('file'), (req,res)=>{
+  const imgUrl = `http://localhost:9000/file/${req.file.filename}`;
+  return res.send(imgUrl);
+  // res.send(req.file)
+})
+
+app.post('/patient/upload',upload.single('file'), (req,res)=>{
+  const imgUrl = `http://localhost:9000/file/${req.file.filename}`;
+  return res.send(imgUrl);
+  // res.send(req.file)
+})
+
+// app.get("/file/:filename", async (req, res) => {
+//   try {
+//       const file = await gfs.files.findOne({ filename: req.params.filename });
+//       const readStream = gfs.createReadStream(file.filename);
+//       readStream.pipe(res);
+//   } catch (error) {
+//       res.send("not found");
+//   }
+// });
+
+
+//////////
 
 app.listen(port, () => console.log(` listening on localhost:${port}`));
