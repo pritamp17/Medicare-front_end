@@ -1,7 +1,7 @@
 import * as axios from 'axios';
-
 import { useState } from "react";
 import { Card, Col, FloatingLabel, Form, Row, Button, Container } from "react-bootstrap";
+import Router from 'next/router'
 import styled from "styled-components";
 import Header from "../../components/Header";
 
@@ -35,19 +35,33 @@ const sendMessage = async (e) => {
   //   const imgForm = new FormData()
   //   imgForm.append('file', photo, photo.name)
 
-  //   await axios.post('patient/upload/image', imgForm,{
-  //       // headers: {
-  //       //     'accept': 'applications/json',
-  //       //     'Accept-Language': 'en-US,en;q=0.8',
-  //       //     'Content-Type':'multipart/form-data; boundary=${imgForm._boundary}',
-  //       // }
+  //   await axios.post('http://localhost:9000/patient/upload', imgForm,{
+  //       headers: {
+  //           'accept': 'applications/json',
+  //           'Accept-Language': 'en-US,en;q=0.8',
+  //           'Content-Type':'multipart/form-data; boundary=${imgForm._boundary}',
+  //       }})
+  //     }
+
+      // if (photo != null) {
+        
+    
+      //   await axios.get('http://localhost:9000/upload', imgForm,{
+      //       headers: {
+      //           'accept': 'applications/json',
+      //           'Accept-Language': 'en-US,en;q=0.8',
+      //           'Content-Type':'multipart/form-data; boundary=${imgForm._boundary}',
+      //       }})
+      //     }
+
+      
 
   const postData = {
     email: Email ,
     password: Password,
     name: Name,
     age: age,
-    profile_pic: "",
+    profile_pic: "https://imgur.com/yDuzhBE",
     mobile: mobile,
     gender:Gender,
     Address:Address,
@@ -59,33 +73,7 @@ const sendMessage = async (e) => {
   console.log(postData);
   savePost(postData)
   
-    // )
-    // .then((res) => {
-
-    //   console.log(res.data);
-
-    //             const postData = {
-    //               email: Email ,
-    //               password: Password,
-    //               name: Name,
-    //               age: age,
-    //               profile_pic: photo,
-    //               mobile: mobile,
-    //               gender:Gender,
-    //               Address:Address,
-    //               Address1:Address1,
-    //               city:city,
-    //               state:state,
-    //               zip:zip
-    //             }
-    //             console.log(postData);
-    //             savePost(postData)
-    //         })
-
-      
-      
-    // })
-// }
+ 
     setEmail('');
     setPassword('');
     setName('')
@@ -110,9 +98,17 @@ const savePost = async (postData)=> {
   }})
   .then((res)=> {
       console.log(res);
+      componentDidMount();
   })
 
 }
+
+const componentDidMount = () => {
+  const {pathname} = Router
+  if(pathname == '/patients/signUp' ){
+     Router.push('/patients')
+  }
+};
 
   return (
     <>
@@ -171,7 +167,7 @@ const savePost = async (postData)=> {
             </Row>
             <Row className="mb-3">
               <FloatingLabel controlId="floatingSelect" label="Gender" as={Col}>
-                <Form.Select aria-label="Floating label select example">
+                <Form.Select aria-label="Floating label select example" onChange={e => setGender(e.target.value)}>
                   {/* <option>Gender</option> */}
                   <option value="1">Male</option>
                   <option value="2">Female</option>
@@ -184,10 +180,10 @@ const savePost = async (postData)=> {
               </Form.Group>
             </Row>
 
-            <Form.Group controlId="formFileSm" className="mb-3">
+            {/* <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Choose Profile Photo</Form.Label>
               <Form.Control type="file" size="sm"  onChange={handleChange} />
-            </Form.Group>
+            </Form.Group> */}
           </Form>
           <Button variant="primary" type="submit" className="md-3" onClick={sendMessage}>
             Sign Me Up

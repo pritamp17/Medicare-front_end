@@ -45,35 +45,6 @@ signup.post("/doctor", async (req, res) => {
   }
 });
 
-//////////////////// adding new doctor and patient  
-signup.post("/doctor/new", async (req, res) => {
-  const newDoc = req.body;
-
-    Doctor.create(newDoc, (err, data) =>{
-        if(err){
-            res.sendStatus(500).send(err)
-        }else{
-            res.send(data)
-        }
-    }) 
-});
-
-// signup.post("/patient/new", async (req, res) => {
-//   const newPat = req.body;
-//  console.log(newPat);
-//   Patient.create(newPat, (err, data) =>{
-//         if(err){
-//             res.sendStatus(500).send(err)
-//         }else{
-//             res.send(data)
-//         }
-//     })
-     
-// });
-
-//////////////////
-
-
 
 signup.post("/patient", async (req, res) => {
   const dbPost = req.body;

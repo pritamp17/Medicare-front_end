@@ -10,7 +10,7 @@ var ipInfo = require("ip-info-finder");
 const Grid = require('gridfs-stream');
 const multer = require('multer')
 const {GridFsStorage} = require('multer-gridfs-storage');
-const mongo = require('mongoose');
+// const upload = require("./routers/upload");
 
 require("dotenv").config();
 
@@ -52,8 +52,7 @@ db.once("open", () => {
 });
 
 conn.once("open", () => {
-  console.log("DB connected");
-
+  // console.log("DB connected");
   
   gfs = Grid(conn.db, mongoClient.mongo)
     gfs.collection('images') 
@@ -77,20 +76,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-// const corsOptions ={
-//   origin:'*', 
-//   credentials:true,            //access-control-allow-credentials:true
-//   optionSuccessStatus:200,
-// }
-
-// app.use(cors(corsOptions)) 
 
 //////////////////// API Routes
 
 app.get("/", (req, res) => res.status(200).send("hello world"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
-
+// app.use("/file", upload);
 // **** doctor search 
 
 app.get("/doctors", (req, res) => {
@@ -142,7 +134,7 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage })
 
-app.get('/retrieve/image/single',(req,res)=>{
+app.get('/patient/upload/:filename',(req,res)=>{
   gfs.files.findOne({filename: req.query.name},(err, file)=>{
       if (err) {
           res.status(500).send(err)
@@ -158,13 +150,27 @@ app.get('/retrieve/image/single',(req,res)=>{
   })
 })
 
-app.post('doctor/upload/image',upload.single('file'), (req,res)=>{
-  res.send(req.file)
+app.post('/doctor/upload',upload.single('file'), (req,res)=>{
+  const imgUrl = `http://localhost:9000/file/${req.file.filename}`;
+  return res.send(imgUrl);
+  // res.send(req.file)
 })
 
-app.post('patient/upload/image',upload.single('file'), (req,res)=>{
-  res.send(req.file)
+app.post('/patient/upload',upload.single('file'), (req,res)=>{
+  const imgUrl = `http://localhost:9000/file/${req.file.filename}`;
+  return res.send(imgUrl);
+  // res.send(req.file)
 })
+
+// app.get("/file/:filename", async (req, res) => {
+//   try {
+//       const file = await gfs.files.findOne({ filename: req.params.filename });
+//       const readStream = gfs.createReadStream(file.filename);
+//       readStream.pipe(res);
+//   } catch (error) {
+//       res.send("not found");
+//   }
+// });
 
 
 //////////
