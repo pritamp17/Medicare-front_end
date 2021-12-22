@@ -4,7 +4,7 @@ import { Card, Row, Col } from "react-bootstrap";
 const DoctorInfo = (props) => {
   return (
     <>
-      <Card style={{ width: "18rem" }} className="p-2">
+      <Card className="p-2 m-5">
         <Card.Img className="rounded p-5 pb-0" variant="top" src="/doctor.jpg" />
         <Card.Body>
           <Card.Title className="fw-bolder text-primary text-center m-0 p-0">Dr. Pritam Pawar</Card.Title>
