@@ -22,9 +22,10 @@ signup.post("/doctor", async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     dbPost.password = hashedPassword;
-    res.header("Access-Control-Allow-Methods", "HEAD, GET, POST, PUT, PATCH, DELETE");
+
     Doctor.create(dbPost, (err, data) => {
       if (err) {
+        console.log(err);
         res.status(500).send(err);
       } else {
         const link = "http://localhost:9000/signup/doctor/verify/" + hashedPassword;
@@ -44,7 +45,6 @@ signup.post("/doctor", async (req, res) => {
     });
   }
 });
-
 
 signup.post("/patient", async (req, res) => {
   const dbPost = req.body;
@@ -83,6 +83,8 @@ signup.post("/patient", async (req, res) => {
     });
   }
 });
+
+
 
 signup.put("/patient/verify/:id", async (req, res) => {
   const id = req.params.id;

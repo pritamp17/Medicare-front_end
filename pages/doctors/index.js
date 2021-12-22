@@ -1,11 +1,12 @@
 import React from 'react'
+import DoctorInfo from '../../components/DoctorInfo'
 
 function index() {
     return (
-        <div>
-            hiii doctor login
-        </div>
+        <>
+            <DoctorInfo />
+        </>
     )
-}
+};
 
-export default index
+export default index;
