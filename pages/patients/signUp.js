@@ -91,7 +91,7 @@ const savePost = async (postData)=> {
   await axios.post('http://localhost:9000/signup/patient', postData,{ headers: {
     'accept': 'applications/json',
      'Accept-Language': 'en-US,en;q=0.8',
-     "Access-Control-Allow-Origin": "http://localhost:300"
+     "Access-Control-Allow-Origin": "http://localhost:3000"
   }})
   .then((res)=> {
       console.log(res);
@@ -103,7 +103,7 @@ const savePost = async (postData)=> {
 const componentDidMount = () => {
   const {pathname} = Router
   if(pathname == '/patients/signUp' ){
-     Router.push('/login')
+     Router.push('/doctors') 
   }
 };
 
@@ -164,7 +164,7 @@ const componentDidMount = () => {
             </Row>
             <Row className="mb-3">
               <FloatingLabel controlId="floatingSelect" label="Gender" as={Col}>
-                <Form.Select aria-label="Floating label select example" onChange={e => setGender(e.target.option)}>
+                <Form.Select aria-label="Floating label select example" onChange={e => setGender(e.target.value)}>
                   {/* <option>Gender</option> */}
                   <option value="1">Male</option>
                   <option value="2">Female</option>
