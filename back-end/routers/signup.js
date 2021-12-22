@@ -2,11 +2,11 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const signup = express.Router();
 const Doctor = require("../Models/DoctorSchema");
-const Patient = require("../Models/PatientSchema"); 
+const Patient = require("../Models/PatientSchema");
 const mailer = require("../misc/mailer");
-const Grid = require('gridfs-stream');
-const multer = require('multer')
-const {GridFsStorage} = require('multer-gridfs-storage');
+const Grid = require("gridfs-stream");
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
 const mongoose = require("mongoose");
 
 signup.post("/doctor", async (req, res) => {
@@ -45,11 +45,10 @@ signup.post("/doctor", async (req, res) => {
   }
 });
 
-
 signup.post("/patient", async (req, res) => {
   const dbPost = req.body;
 
-  // console.log(req.body);
+  console.log(req.body);
 
   //Check if email exists
   const pat = await Patient.findOne({ email: req.body.email });
@@ -75,16 +74,14 @@ signup.post("/patient", async (req, res) => {
                       <a href=` +
           link +
           `>Click here to verify</a>`;
- 
+
         mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Please verify your email", html);
         res.status(201);
-        res.redirect('/');
+        res.redirect("/");
       }
     });
   }
 });
-
-
 
 signup.get("/patient/verify/:id", async (req, res) => {
   const id = req.params.id;
@@ -93,16 +90,14 @@ signup.get("/patient/verify/:id", async (req, res) => {
     pat.isVerified = true;
     pat.save();
     // res.status(200).send("Verified");
-     res.redirect("http://localhost:3000/login");
+    res.redirect("http://localhost:3000/login");
     // window.setTimeout(function(){
     //   window.location.href = "https://www.google.co.in";
-    // }, 5000); 
-
+    // }, 5000);
   } else {
     res.status(404).send("Not found");
   }
 });
-
 
 signup.get("/doctor/verify/:id", async (req, res) => {
   const id = req.params.id;

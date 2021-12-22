@@ -45,7 +45,7 @@ const patient = new mongoose.Schema(
       type: String,
     },
     zip: {
-      type: Number,
+      type: String,
     },
     blood_group: {
       type: String,
