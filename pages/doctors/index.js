@@ -1,11 +1,12 @@
 import React from 'react'
-import DoctorInfo from '../../components/DoctorInfo'
 
 function index() {
     return (
-        <>
-            <DoctorInfo />
-        </>
+
+        <div>
+            hiii please verify your email. 
+        </div>
+
     )
 };
 
