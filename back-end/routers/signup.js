@@ -96,7 +96,7 @@ signup.get("/patient/verify/:id", async (req, res) => {
      res.redirect("http://localhost:3000/login");
     // window.setTimeout(function(){
     //   window.location.href = "https://www.google.co.in";
-    // }, 5000);
+    // }, 5000); 
 
   } else {
     res.status(404).send("Not found");
