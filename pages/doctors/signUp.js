@@ -30,8 +30,6 @@ function signUp() {
         e.preventDefault();
          
           const postData = {
-
-        await axios.post('/signup/doctor',{
             email: Email ,
             password: Password,
             name: Name,
@@ -63,8 +61,8 @@ function signUp() {
         setZip()
         setGender('')
         setPhoto('')
-    }
-
+    
+  }
 
     const savePost = async (postData)=> {
       await axios.post('http://localhost:9000/signup/doctor', postData,{ headers: {
@@ -84,7 +82,7 @@ function signUp() {
       if(pathname == '/doctors/signUp' ){
          Router.push('/doctors')
       }
-    };
+    }; 
 
   return (
     <>

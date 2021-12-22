@@ -103,7 +103,7 @@ const savePost = async (postData)=> {
 const componentDidMount = () => {
   const {pathname} = Router
   if(pathname == '/patients/signUp' ){
-     Router.push('/patients')
+     Router.push('/doctors') 
   }
 };
 
