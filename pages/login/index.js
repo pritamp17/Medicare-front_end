@@ -1,133 +1,148 @@
 import React, { useState } from "react";
-import { Card, Col, FloatingLabel, Form, Row, Button, Container } from "react-bootstrap";
+import { Card, Col, FloatingLabel, Form, Row, Button, Container, Alert } from "react-bootstrap";
 import styled from "styled-components";
 import Header from "../../components/Header";
-import * as axios from 'axios';
-import Router from 'next/router'
+import * as axios from "axios";
+import Router from "next/router";
 // import Login from "../../components/Login";
 // import "./style.css";
 
 function login() {
-  
-  const [docEmail, setDocEmail] = useState("") 
-  const [docPass, setDocPass] = useState("")
-  const [patEmail, setPatEmail] = useState("")
-  const [patPass, setPatPass] = useState("")
+  const [docEmail, setDocEmail] = useState("");
+  const [docPass, setDocPass] = useState("");
+  const [patEmail, setPatEmail] = useState("");
+  const [patPass, setPatPass] = useState("");
 
-
-  // //////////////// doc 
+  // //////////////// doc
   const DocFun = async (e) => {
-    e.preventDefault();   
-  
+    e.preventDefault();
+
     const postData = {
-      email: docEmail ,
+      email: docEmail,
       password: docPass,
-    }
+    };
     console.log(postData);
-    saveDocPost(postData)   
-    setDocEmail('');
-    setDocPass('');
-  }
+    saveDocPost(postData);
+    setDocEmail("");
+    setDocPass("");
+  };
 
- 
-
-  const saveDocPost = async (postData)=> {
-    await axios.post('http://localhost:9000/login/doctor', postData,{ headers: {
-      'accept': 'applications/json',
-       'Accept-Language': 'en-US,en;q=0.8',
-       "Access-Control-Allow-Origin": "http://localhost:3000"
-    }})
-    .then((res)=> {
+  const saveDocPost = async (postData) => {
+    await axios
+      .post("http://localhost:9000/login/doctor", postData, {
+        headers: {
+          accept: "applications/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+        },
+      })
+      .then((res) => {
         console.log(res);
         componentDidMount();
-    })
-  
-  }
-  
+      });
+  };
+
   const componentDidMount = () => {
-    const {pathname} = Router
-    if(pathname == '/login' ){
-       Router.push('/doctors') 
+    const { pathname } = Router;
+    if (pathname == "/login") {
+      Router.push("/doctors");
     }
   };
 
-// ///////////////////////////////////////////// pat
+  // ///////////////////////////////////////////// pat
 
   const PatFun = async (e) => {
-    e.preventDefault();   
-  
-    const postData = {
-      email: patEmail ,
-      password: patPass,
-    }
-    console.log(postData);
-    savePatPost(postData)   
-    setPatEmail('');
-    setPatPass('');
-  }
+    e.preventDefault();
 
-  const savePatPost = async (postData)=> {
-    await axios.post('http://localhost:9000/login/patient', postData,{ headers: {
-      'accept': 'applications/json',
-       'Accept-Language': 'en-US,en;q=0.8',
-       "Access-Control-Allow-Origin": "http://localhost:3000"
-    }})
-    .then((res)=> {
+    const postData = {
+      email: patEmail,
+      password: patPass,
+    };
+    console.log(postData);
+    savePatPost(postData);
+    setPatEmail("");
+    setPatPass("");
+  };
+
+  const savePatPost = async (postData) => {
+    await axios
+      .post("http://localhost:9000/login/patient", postData, {
+        headers: {
+          accept: "applications/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+        },
+      })
+      .then((res) => {
         console.log(res);
         componentDidMountP();
-    })
-  
-  }
-  
+      });
+  };
+
   const componentDidMountP = () => {
-    const {pathname} = Router
-    if(pathname == '/login' ){
-       Router.push('/patients') 
+    const { pathname } = Router;
+    if (pathname == "/login") {
+      Router.push("/patients");
     }
   };
 
   return (
-
     <>
       <Header id="2" />
-      <div class="container my-4 ">
-        <div class="row">
-          <div class=" col-sm-6">
-            <div className="login" border-style="solid">
-              <h4>Doctor Login</h4>
-              <form>
-                <div className="text_area">
-                  <input type="email" id="username" name="username" className="text_input" placeholder="enter your email id" onChange={e => setDocEmail(e.target.value)}/>
-                </div>
-                <div className="text_area my-2">
-                  <input type="password" id="password" name="password" className="text_input" placeholder="enter your password" onChange={e => setDocPass(e.target.value)}/>
-                </div>
-                <button type="button my-4" className="btn btn-primary" type="submit" onClick={DocFun}>
-                  SIGN IN
-                </button>
-              </form>
-              <a className="btn" href="/signup"></a>
-            </div>
-          </div>
-          <div class=" col-sm-6">
-            <div className="login" >
-              <h4>Patient Login</h4>
-              <form>
-                <div className="text_area">
-                  <input type="email" id="username" name="username" placeholder="your email id" className="text_input" onChange={e => setPatEmail(e.target.value)}/>
-                </div>
-                <div className="text_area my-2">
-                  <input type="password" id="password" name="password" placeholder="enter your password" className="text_input" onChange={e => setPatPass(e.target.value)}/>
-                </div>
-                <button type="button my-4" className="btn btn-primary" type="submit" onClick={PatFun}>
-                  SIGN IN
-                </button>
-              </form>
-              <a className="btn" href="/signup"></a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Container>
+        <Row className="row">
+          <Col md={6} className="p-5">
+            <Card className="p-5">
+              <Card.Img variant="top" src="/doctor.jpg" style={{ width: "18rem", height: "18rem" }} className="mx-auto img-fluid rounded-circle text-center" />
+              <Card.Body>
+                <Card.Title className="text-center">Doctor Login</Card.Title>
+                <hr />
+                <Card.Text>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control type="email" placeholder="Enter email" onChange={(e) => setDocEmail(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control type="password" placeholder="Password" onChange={(e) => setDocPass(e.target.value)} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={DocFun}>
+                      Login
+                    </Button>
+                  </Form>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={6} className="p-5">
+            <Card className="p-5">
+              <Card.Img variant="top" src="/patient.jpg" style={{ width: "18rem", height: "18rem" }} className="mx-auto img-fluid rounded-circle text-center" />
+              <Card.Body>
+                <Card.Title className="text-center">Patient Login</Card.Title>
+                <hr />
+                <Card.Text>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control type="email" placeholder="Enter email" onChange={(e) => setPatEmail(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control type="password" placeholder="Password" onChange={(e) => setPatPass(e.target.value)} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={PatFun}>
+                      Login
+                    </Button>
+                  </Form>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

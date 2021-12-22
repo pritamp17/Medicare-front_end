@@ -32,10 +32,10 @@ const doctor = new mongoose.Schema(
       type: String,
     },
     zip: {
-      type: Number,
+      type: String,
     },
     mobile: {
-      type: Number,
+      type: String,
     },
     specialisation: {
       type: String,

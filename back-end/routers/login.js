@@ -13,7 +13,7 @@ login.post("/doctor", (req, res, next) => {
         return next(err);
       }
       if (!user) {
-        res.status(200).send("User is not correct");;
+        res.status(404).send(new Error("User is not correct"));
       }
       const doctor = await Doctor.findOne({ email: user.email });
       if (doctor) {
@@ -25,10 +25,10 @@ login.post("/doctor", (req, res, next) => {
           res.status(200).send(doctor);
         });
       } else {
-        return res.send("Not a doctor");
+        res.status(404).send(new Error("Not a doctor"));
       }
     } catch (err) {
-      return res.send(err);
+      return res.status(404).send(err);
     }
   })(req, res, next);
 });
@@ -44,7 +44,7 @@ login.post("/patient", (req, res, next) => {
           return next(err);
         }
         if (!user) {
-          return res.redirect("/login");
+          res.status(404).send(new Error("User is not correct"));
         }
         const patient = await Patient.findOne({ email: user.email });
         if (patient) {
@@ -57,10 +57,10 @@ login.post("/patient", (req, res, next) => {
             res.send(patient);
           });
         } else {
-          return res.send("Not a patient");
+          res.status(404).send(new Error("Not a patient"));
         }
       } catch (err) {
-        return res.send(err);
+        return res.status(404).send(err);
       }
     }
   )(req, res, next);
