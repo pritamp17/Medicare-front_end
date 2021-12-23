@@ -2,12 +2,25 @@ import * as React from "react";
 import { Card, Button, Table } from "react-bootstrap";
 import { useState } from "react";
 import EditPatientInfo from "./EditPatientInfo";
+import { useEffect } from "react";
+import * as axios from 'axios';
 
 const PatientInfo = (props) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [object, setObject] = useState({});
+  const email = 'pritampawar625@gmail.com'
+
+  useEffect(() => {
+  
+    axios.get('http://localhost:9000/patient/pritampawar625@gmail.com')
+    .then(response => {
+       setObject(response.data);
+        console.log(object);
+    })
+  }, []) 
 
   return (
     <>
@@ -19,19 +32,19 @@ const PatientInfo = (props) => {
             <tbody>
               <tr>
                 <td>Name</td>
-                <td>Pritam Pawar</td>
+                <td>{props.name}</td>
               </tr>
               <tr>
                 <td>Email</td>
-                <td>cheemu@gmail.com</td>
+                <td>{props.email}</td>
               </tr>
               <tr>
                 <td>Gender</td>
-                <td>Male</td>
+                <td>{props.gender}</td> 
               </tr>
               <tr>
                 <td>Age</td>
-                <td>21</td>
+                <td>{props.age}</td>
               </tr>
               <tr>
                 <td>Blood group</td>

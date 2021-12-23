@@ -90,7 +90,7 @@ app.use("/login", require("./routers/login"));
 // app.use("/file", upload);
 // **** doctor search 
 
-app.get("/doctors", (req, res) => {
+app.get("/doctors/find", (req, res) => {
 
   const ipAddres = request.connection.remoteAddress;
     // console.log(idAddress);
@@ -176,7 +176,16 @@ app.post('/patient/upload',upload.single('file'), (req,res)=>{
 //       res.send("not found");
 //   }
 // });
-
+ 
+app.get("/patient/:email", async (req, res) => {
+  const id = req.params.email;
+  const pat = await Patient.findOne({ email: id });
+  if (pat) {
+     res.status(200).send(pat);
+  } else {
+    res.status(404).send("Not found");
+  }
+});
 
 //////////
 

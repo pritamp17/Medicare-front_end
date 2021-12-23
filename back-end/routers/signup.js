@@ -49,7 +49,7 @@ signup.post("/doctor", async (req, res) => {
 signup.post("/patient", async (req, res) => {
   const dbPost = req.body;
 
-  // console.log(req.body);
+  console.log(req.body);
 
   //Check if email exists
   const pat = await Patient.findOne({ email: req.body.email });

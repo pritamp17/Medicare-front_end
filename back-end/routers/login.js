@@ -28,7 +28,7 @@ login.post("/doctor", (req, res, next) => {
         return res.send("Not a doctor");
       }
     } catch (err) {
-      return res.send(err);
+      return res.send(err); 
     }
   })(req, res, next);
 });

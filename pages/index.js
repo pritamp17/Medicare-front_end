@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import Login from "../components/Login";
 import HomePage from "../components/HomePage";
+import { useState } from "react";
+import { useEffect } from "react";
+import * as axios from 'axios';
 
 export default function Home() {
+ 
   return (
     <>
       {/*<Wrapper>

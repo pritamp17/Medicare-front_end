@@ -13,7 +13,7 @@ function login() {
   const [docPass, setDocPass] = useState("")
   const [patEmail, setPatEmail] = useState("")
   const [patPass, setPatPass] = useState("")
-
+  const [data, setData] = useState({});
 
   // //////////////// doc 
   const DocFun = async (e) => {
@@ -60,7 +60,7 @@ function login() {
       email: patEmail ,
       password: patPass,
     }
-    console.log(postData);
+    // console.log(postData);
     savePatPost(postData)   
     setPatEmail('');
     setPatPass('');
@@ -73,6 +73,7 @@ function login() {
        "Access-Control-Allow-Origin": "http://localhost:3000"
     }})
     .then((res)=> {
+      setData(res.data);
         console.log(res);
         componentDidMountP();
     })
@@ -82,7 +83,9 @@ function login() {
   const componentDidMountP = () => {
     const {pathname} = Router
     if(pathname == '/login' ){
-       Router.push('/patients') 
+       Router.push({
+         pathname: '/patients',
+       }) 
     }
   };
 
