@@ -10,11 +10,6 @@ const EditPatientInfo = (props) => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Name</Form.Label>
               <Form.Control type="email" placeholder="Enter Name" />
@@ -23,9 +18,9 @@ const EditPatientInfo = (props) => {
               <Form.Label>Gender</Form.Label>
               <Form.Select aria-label="Floating label select example">
                 {/* <option>Gender</option> */}
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-                <option value="3">Gender Neutral</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="gender neutral">Gender Neutral</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
