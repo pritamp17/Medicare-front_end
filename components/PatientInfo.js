@@ -11,7 +11,7 @@ const PatientInfo = (props) => {
 
   return (
     <>
-      <Card style={{ width: "20rem" }} className="shadow p-3 mb-5 bg-body rounded">
+      <Card className="shadow p-3 mb-5 bg-body rounded">
         <Card.Img variant="top" src="/patient.jpg" style={{ height: "15rem" }} />
         <Card.Body className="text-center">
           <Card.Title>Personal Information</Card.Title>

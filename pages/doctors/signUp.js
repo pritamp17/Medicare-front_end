@@ -80,7 +80,7 @@ function signUp() {
     const componentDidMount = () => {
       const {pathname} = Router
       if(pathname == '/doctors/signUp' ){
-         Router.push('/doctors')
+         Router.push('/login')
       }
     }; 
 

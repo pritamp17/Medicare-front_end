@@ -83,9 +83,10 @@ signup.post("/patient", async (req, res) => {
   }
 });
 
-signup.get("/patient/verify/:id", async (req, res) => {
-  const id = req.params.id;
+signup.get("/patient/verify/", async (req, res) => {
+  const id = req.query;
   const pat = await Patient.findOne({ password: id });
+  console.log(id);
   if (pat) {
     pat.isVerified = true;
     pat.save();

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button, InputGroup } from "react-bootstrap";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+
 const DoctorNav = (props) => {
   return (
     <>
