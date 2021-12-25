@@ -4,8 +4,22 @@ import { Card, Col, FloatingLabel, Form, Row, Button, Container } from "react-bo
 import Router from "next/router";
 import styled from "styled-components";
 import Header from "../../components/Header";
+import { useSelector } from "react-redux";
+import { Doctor } from "../doctors/index";
+import { PatientDashboard } from "../patients/index";
 
 function signUp() {
+  const session = useSelector((state) => state);
+  const user = session.data.login;
+  if (user) {
+    if (user.isDoctor === true) {
+      Router.push("/doctors");
+      return null;
+    } else if (user.isPatient === true) {
+      Router.push("/patients");
+      return null;
+    }
+  }
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [Name, setName] = useState("");

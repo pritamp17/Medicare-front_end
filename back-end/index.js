@@ -84,7 +84,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.get("/", (req, res) => res.status(200).send("hello world"));
+app.use("/", require("./routers/index"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
 // app.use("/file", upload);

@@ -3,6 +3,10 @@ import { Navbar, Container, Nav, Form, FormControl, Button, InputGroup } from "r
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 
 const DoctorNav = (props) => {
+  const handleLogout = (e) => {
+    e.preventDefault();
+    props.logout();
+  };
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="danger" variant="dark" className="justify-content-center">
@@ -14,6 +18,9 @@ const DoctorNav = (props) => {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Navbar.Text className="m-auto fs-4 text-light p-auto">Hello, Dr. Pritam Pawar</Navbar.Text>
+            <Button type="submit" variant="outline-danger" className="btn-secondary text-light ms-auto" onClick={handleLogout}>
+              Logout
+            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>

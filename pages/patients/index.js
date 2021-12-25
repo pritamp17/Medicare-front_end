@@ -5,11 +5,30 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PatientAppointment from "../../components/PatientAppointment";
 import PatientVisitSummary from "../../components/PatientVisitSummary";
 import PatientNav from "../../components/PatientNav";
+import { useSelector, useDispatch } from "react-redux";
+import { delSession } from "../../redux/actions/sessionActions";
+import Router from "next/router";
+
+
 const PatientDashboard = (props) => {
+  const session = useSelector((state) => state);
+  console.log(session);
+  const dispatch = useDispatch();
+  const logout =  () => {
+    console.log("logout");
+    dispatch(delSession());
+    Router.push("/");
+  };
+  
+  if (!session.data.login) {
+    Router.push("/");
+    return null;
+  }
+
   return (
     <Container fluid>
       <Row>
-        <PatientNav className="mb-2"/>
+        <PatientNav className="mb-2" logout={logout} />
       </Row>
       <Row>
         <Col md={3}>
@@ -36,4 +55,3 @@ const PatientDashboard = (props) => {
   );
 };
 export default PatientDashboard;
-

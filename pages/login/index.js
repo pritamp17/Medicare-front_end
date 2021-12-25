@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Col, FloatingLabel, Form, Row, Button, Container, Alert } from "react-bootstrap";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import * as axios from "axios";
 import Router from "next/router";
-// import Login from "../../components/Login";
-// import "./style.css";
+import { useSelector, useDispatch } from "react-redux";
+import { getSession } from "../../redux/actions/sessionActions";
+import { Doctor } from "../doctors/index";
+import { PatientDashboard } from "../patients/index";
 
 function login() {
   const [docEmail, setDocEmail] = useState("");
   const [docPass, setDocPass] = useState("");
   const [patEmail, setPatEmail] = useState("");
   const [patPass, setPatPass] = useState("");
+  const dispatch = useDispatch();
+
+  const session = useSelector((state) => state);
+  const user = session.data.login;
+  
+  if (user) {
+    if (user.isDoctor === true) {
+      Router.push("/doctors");
+      return null;
+    } else if (user.isPatient === true) {
+      Router.push("/patients");
+      return null;
+    }
+  }
+  
+  
 
   // //////////////// doc
   const DocFun = async (e) => {
@@ -38,6 +56,8 @@ function login() {
       })
       .then((res) => {
         console.log(res);
+        res.data = { ...res.data, isPatient: false, isDoctor: true };
+        dispatch(getSession(res.data));
         componentDidMount();
       });
   };
@@ -75,7 +95,11 @@ function login() {
       })
       .then((res) => {
         console.log(res);
+        res.data = { ...res.data, isPatient: true, isDoctor: false };
+        dispatch(getSession(res.data));
         componentDidMountP();
+      }).catch((err) => {
+        console.log(err);
       });
   };
 

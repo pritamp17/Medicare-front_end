@@ -23,6 +23,9 @@ const Header = (props) => (
               Continue as a Patient
             </Button>
           ) : null}
+          <Button variant="outline-primary" className="mx-2 text-white" href="/login">
+            Login
+          </Button>
         </Nav>
       </Navbar.Collapse>
     </Container>

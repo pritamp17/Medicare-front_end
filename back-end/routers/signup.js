@@ -76,8 +76,7 @@ signup.post("/patient", async (req, res) => {
           `>Click here to verify</a>`;
 
         mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Please verify your email", html);
-        res.status(201);
-        res.redirect("/");
+        res.status(200).send(data);
       }
     });
   }
@@ -102,6 +101,7 @@ signup.get("/patient/verify/", async (req, res) => {
 
 signup.get("/doctor/verify/:id", async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   const doc = await Doctor.findOne({ password: id });
   if (doc) {
     doc.isVerified = true;
