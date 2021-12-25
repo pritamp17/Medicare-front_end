@@ -2,8 +2,13 @@ import * as React from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button, InputGroup } from "react-bootstrap";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-const PatientNav = ({email}) => {
-  // console.log(email);
+
+const PatientNav = (props) => {
+  const handleLogout = (e) => {
+    e.preventDefault();
+    props.logout();
+  };
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="danger" variant="dark" className="justify-content-center">
@@ -23,6 +28,9 @@ const PatientNav = ({email}) => {
               </InputGroup>
               <Button type="submit" variant="outline-success" className="btn-primary text-light mb-2">
                 Search
+              </Button>
+              <Button type="submit" variant="outline-danger" className="btn-secondary text-light mb-2" onClick={handleLogout}>
+                Logout
               </Button>
             </Form>
           </Navbar.Collapse>

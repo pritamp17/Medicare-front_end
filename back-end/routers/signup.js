@@ -77,8 +77,7 @@ signup.post("/patient", async (req, res) => {
           `>Click here to verify</a>`;
 
         mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Please verify your email", html);
-        res.status(201);
-        res.redirect("/");
+        res.status(200).send(data);
       }
     });
   }
@@ -111,9 +110,10 @@ signup.put("/patient/update", async (req, res) => {
 });
  // console.log('/////////////////////////////////////////////////////////////');
 
-signup.get("/patient/verify/:id", async (req, res) => {
-  const id = req.params.id;
+signup.get("/patient/verify/", async (req, res) => {
+  const id = req.query;
   const pat = await Patient.findOne({ password: id });
+  console.log(id);
   if (pat) {
     pat.isVerified = true;
     pat.save();
@@ -129,6 +129,7 @@ signup.get("/patient/verify/:id", async (req, res) => {
 
 signup.get("/doctor/verify/:id", async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   const doc = await Doctor.findOne({ password: id });
   if (doc) {
     doc.isVerified = true;

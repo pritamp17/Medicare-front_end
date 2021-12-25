@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import { AppointmentList } from "../../components/AppointmentList";
 import DoctorInfo from "../../components/DoctorInfo";
 import DoctorNav from "../../components/DoctorNav";
-import { useEffect } from "react";
-import * as axios from 'axios';
+import Router from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import { delSession } from "../../redux/actions/sessionActions";
 import { useState } from "react";
 
-function index() {
+function Doctor() {
   const [object, setObject] = useState({});
-  const email = 'pritampawar625@gmail.com'
+  const session = useSelector((state) => state);
+  console.log(session);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get('http://localhost:9000/doctor/pritampawar625@gmail.com')
-    .then(response => {
-       setObject(response.data);
-    })
-  }, []) 
+    if (!session.data.login) {
+      Router.push("/");
+      return <h4>logging you out....</h4>;
+    }
+  }, []);
+  setObject(session.data.login);
+  const logout = () => {
+    console.log("logout");
+    dispatch(delSession());
+    Router.push("/");
+  };
 
-  // console.log(object);
-  return ( 
+  return (
     <>
       <Container fluid>
-        <Row> 
-          <DoctorNav />
-        </Row> 
-        <Row></Row>
+        <Row>
+          <DoctorNav logout={logout} />
+        </Row>
         <Row>
           <Col md={4}>
             <DoctorInfo className="m-5" name={object.name} len = {object.appointments} />
@@ -42,5 +49,4 @@ function index() {
   );
 }
 
-
-export default index;
+export default Doctor;

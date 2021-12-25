@@ -5,29 +5,33 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PatientAppointment from "../../components/PatientAppointment";
 import PatientVisitSummary from "../../components/PatientVisitSummary";
 import PatientNav from "../../components/PatientNav";
-import { useEffect } from "react";
-import * as axios from 'axios';
+import { useSelector, useDispatch } from "react-redux";
+import { delSession } from "../../redux/actions/sessionActions";
+import Router from "next/router";
 import { useState } from "react";
- 
+
 const PatientDashboard = (props) => {
   const [object, setObject] = useState({});
   const [oppointment, setOppointment] = useState([])
-  const email = 'pritampawar625@gmail.com' 
-
-  useEffect(() => {
-    axios.get('http://localhost:9000/patient/pritampawar625@gmail.com')
-    .then(response => {
-       setObject(response.data);
-      //  console.log(object.appointments);
-      setOppointment(object.appointments)
-      // console.log(oppointment);
-    }) 
-  }, []) 
-
+  const session = useSelector((state) => state);
+  console.log(session);
+  const dispatch = useDispatch();
+  const logout =  () => {
+    console.log("logout");
+    dispatch(delSession());
+    Router.push("/");
+  };
+  
+  if (!session.data.login) {
+    Router.push("/");
+    return null;
+  }
+setObject(session.data.login)
+ setOppointment{[]} 
   return (
     <Container fluid>
-      <Row> 
-        <PatientNav className="mb-2" email={object.email}/>
+      <Row>
+        <PatientNav className="mb-2" logout={logout} />
       </Row>
       <Row>
         <Col md={3}>
@@ -54,4 +58,3 @@ const PatientDashboard = (props) => {
   );
 };
 export default PatientDashboard;
-
