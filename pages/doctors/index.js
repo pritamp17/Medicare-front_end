@@ -6,8 +6,10 @@ import DoctorNav from "../../components/DoctorNav";
 import Router from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { delSession } from "../../redux/actions/sessionActions";
+import { useState } from "react";
 
 function Doctor() {
+  const [object, setObject] = useState({});
   const session = useSelector((state) => state);
   console.log(session);
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ function Doctor() {
       return <h4>logging you out....</h4>;
     }
   }, []);
-
+  setObject(session.data.login);
   const logout = () => {
     console.log("logout");
     dispatch(delSession());
@@ -31,16 +33,14 @@ function Doctor() {
         <Row>
           <DoctorNav logout={logout} />
         </Row>
-        <Row></Row>
         <Row>
           <Col md={4}>
-            <DoctorInfo className="m-5" />
-            <AppointmentList className="m-5" />
+            <DoctorInfo className="m-5" name={object.name} len = {object.appointments} />
           </Col>
           <Col md={8}>
             <Row>
-              <Col></Col>
-              <Col></Col>
+              <Col><AppointmentList className="m-5"/> </Col>
+            
             </Row>
           </Col>
         </Row>

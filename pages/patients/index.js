@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import PatientInfo from "../../components/PatientInfo";
 import { Container, Row, Col } from "react-bootstrap";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
@@ -8,9 +8,11 @@ import PatientNav from "../../components/PatientNav";
 import { useSelector, useDispatch } from "react-redux";
 import { delSession } from "../../redux/actions/sessionActions";
 import Router from "next/router";
-
+import { useState } from "react";
 
 const PatientDashboard = (props) => {
+  const [object, setObject] = useState({});
+  const [oppointment, setOppointment] = useState([])
   const session = useSelector((state) => state);
   console.log(session);
   const dispatch = useDispatch();
@@ -24,7 +26,8 @@ const PatientDashboard = (props) => {
     Router.push("/");
     return null;
   }
-
+setObject(session.data.login)
+ setOppointment{[]} 
   return (
     <Container fluid>
       <Row>
@@ -47,7 +50,7 @@ const PatientDashboard = (props) => {
             </Col>
           </Row>
           <Row>
-            <PatientAppointment></PatientAppointment>
+            <PatientAppointment oppointment= {oppointment}></PatientAppointment>
           </Row>
         </Col>
       </Row>

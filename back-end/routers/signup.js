@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const signup = express.Router();
 const Doctor = require("../Models/DoctorSchema");
 const Patient = require("../Models/PatientSchema");
+const Appoint = require("../Models/AppointmentSchema");
 const mailer = require("../misc/mailer");
 const Grid = require("gridfs-stream");
 const multer = require("multer");
@@ -81,6 +82,33 @@ signup.post("/patient", async (req, res) => {
     });
   }
 });
+///////////////////////////////////// updaet patients
+signup.put("/patient/update", async (req, res) => {
+  const dbPost = req.body;
+  const pat = await Patient.findOne({ email: req.body.email });
+ 
+  console.log(dbPost);
+
+  if (!pat) {
+    res.status(404).send("Email exists");
+  } else {
+    Patient.updateOne(pat,dbPost, (err, data) => {
+      if (err) {
+        res.status(500).redirect("/patients/signup");
+      } else {
+        const html =
+          `Hi there
+                      <br/> Welcome to Medicare, you'r profile is updated sucessfully.
+                      <br/> Hope you enjoy the services available and help us to improve more.
+                      <br/>`;
+
+        mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Please verify your email", html);
+        res.status(201);
+      }
+    });
+  }
+});
+ // console.log('/////////////////////////////////////////////////////////////');
 
 signup.get("/patient/verify/", async (req, res) => {
   const id = req.query;
@@ -111,6 +139,31 @@ signup.get("/doctor/verify/:id", async (req, res) => {
   } else {
     res.status(404).send("Not found");
   }
+}); 
+
+////////////////////// Appoitnments//////////////////////
+
+signup.post("/appointment", async (req, res) => {
+  const dbPost = req.body;
+
+  // console.log(req.body);
+
+  if (dbPost == " ") {
+    res.status(404).send("err");
+  } else {
+   
+    Appoint.create(dbPost, (err, data) => {
+      if (err) {
+        res.status(500)
+      } else {
+        res.status(200);
+        // res.redirect("/");
+        res.send(data);
+      }
+    });
+  }
 });
+
+////////////////////////////////////////////////
 
 module.exports = signup;

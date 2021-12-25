@@ -177,7 +177,25 @@ app.post('/patient/upload',upload.single('file'), (req,res)=>{
 //   }
 // });
 
+app.get("/patient/:email", async (req, res) => {
+  const id = req.params.email;
+  const pat = await Patient.findOne({ email: id });
+  if (pat) {
+     res.status(200).send(pat);
+  } else {
+    res.status(404).send("Not found");
+  }
+});
 
+app.get("/doctor/:email", async (req, res) => {
+  const id = req.params.email;
+  const pat = await Patient.findOne({ email: id });
+  if (pat) {
+     res.status(200).send(pat);
+  } else {
+    res.status(404).send("Not found");
+  }
+});
 //////////
 
 app.listen(port, () => console.log(` listening on localhost:${port}`));
