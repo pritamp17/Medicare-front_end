@@ -2,7 +2,8 @@ import * as React from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button, InputGroup } from "react-bootstrap";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-const PatientNav = (props) => {
+const PatientNav = ({email}) => {
+  // console.log(email);
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="danger" variant="dark" className="justify-content-center">

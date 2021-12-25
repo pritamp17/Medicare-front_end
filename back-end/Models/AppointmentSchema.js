@@ -4,12 +4,12 @@ const appointment = new mongoose.Schema(
   {
     patient_id: [{ type: String }],
     doctor_id: [{ type: String }],
-    time: { type: Time },
-    date: { type: Date },
+    time: { type: String },
+    date: { type: String },
     status: { type: String },
     symptoms: { type: String },
     disease: { type: String },
-    prescription: [{ type: String }],
+    prescription: { type: String },
     test_id: [{ type: String }],
   },
   { timestamps: true }

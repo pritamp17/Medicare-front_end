@@ -1,9 +1,26 @@
  import Header from "../../components/Header";
  import {Row, Container, Col, Card,Button} from "react-bootstrap"
 import React from 'react'
+import { useEffect } from "react";
+import * as axios from 'axios';
+import { useState } from "react";
 
 function home() {
-  return(
+  const [object, setObject] = useState({});
+  const [oppointment, setOppointment] = useState([])
+  const email = 'pritampawar625@gmail.com'
+
+  useEffect(() => {
+    axios.get('http://localhost:9000/doctor/pritampawar625@gmail.com')
+    .then(response => {
+       setObject(response.data);
+      //  console.log(object.appointments);
+      setOppointment(object.appointments)
+      // console.log(oppointment);
+    })
+  }, []) 
+  console.log(object);
+  return( 
     <>
     <Header id="2"/>
     <Container className="shadow p-3 mb-5 my-4 bg-body rounded">
