@@ -1,13 +1,25 @@
-import * as React from "react";
+import  React from "react";
 import { Card, Button, Table } from "react-bootstrap";
-import { useState } from "react";
 import EditPatientInfo from "./EditPatientInfo";
+import { useEffect } from "react";
+import * as axios from 'axios';
+import { useState } from "react";
 
 const PatientInfo = (props) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [object, setObject] = useState({});
+  const email = 'pritampawar625@gmail.com'
+
+  useEffect(() => {
+    axios.get('http://localhost:9000/patient/pritampawar625@gmail.com')
+    .then(response => {
+       setObject(response.data);
+        // console.log(object);
+    })
+  }, [])
 
   return (
     <>
@@ -19,24 +31,24 @@ const PatientInfo = (props) => {
             <tbody>
               <tr>
                 <td>Name</td>
-                <td>Pritam Pawar</td>
+                <td>{object.name}</td>
               </tr>
               <tr>
                 <td>Email</td>
-                <td>cheemu@gmail.com</td>
+                <td>{object.email}</td>
               </tr>
               <tr>
                 <td>Gender</td>
-                <td>Male</td>
+                <td>{object.gender}</td>
               </tr>
               <tr>
                 <td>Age</td>
-                <td>21</td>
+                <td>{object.age}</td>
               </tr>
               <tr>
                 <td>Blood group</td>
                 <td>O+</td>
-              </tr>
+              </tr> 
               <tr>
                 <td>Heigth</td>
                 <td>165</td>
@@ -55,7 +67,7 @@ const PatientInfo = (props) => {
           <Button variant="danger">Logout</Button>
         </Card.Body>
       </Card>
-      <EditPatientInfo show={show} handleClose={handleClose} />
+      <EditPatientInfo email ={object.email} show={show} handleClose={handleClose} />
     </>
   );
 };

@@ -25,7 +25,7 @@ const patient = new mongoose.Schema(
       type: Number,
     },
     mobile: {
-      type: Number,
+      type: Number, 
     },
     profile_pic: {
       type: String,
@@ -53,7 +53,7 @@ const patient = new mongoose.Schema(
     height: {
       type: String,
     },
-    weight: { type: Number },
+    weight: { type: String },
     test_reports: [{ type: String }],
   },
   { timestamps: true }
