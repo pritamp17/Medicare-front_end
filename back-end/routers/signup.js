@@ -85,30 +85,31 @@ signup.post("/patient", async (req, res) => {
 ///////////////////////////////////// updaet patients
 signup.put("/patient/update", async (req, res) => {
   const dbPost = req.body;
-  const pat = await Patient.findOne({ email: req.body.email });
- 
-  console.log(dbPost);
+  let pat = await Patient.findOne({ email: req.body.email });
+
+  //console.log(dbPost);
 
   if (!pat) {
     res.status(404).send("Email exists");
   } else {
-    Patient.updateOne(pat,dbPost, (err, data) => {
+    Patient.updateOne(pat, dbPost, (err, data) => {
       if (err) {
         res.status(500).redirect("/patients/signup");
       } else {
-        const html =
-          `Hi there
+        const html = `Hi there
                       <br/> Welcome to Medicare, you'r profile is updated sucessfully.
                       <br/> Hope you enjoy the services available and help us to improve more.
                       <br/>`;
 
-        mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Please verify your email", html);
-        res.status(201);
+        mailer.sendEmail("medicare2019ee@gmail.com", req.body.email, "Profile updated successfully", html);
       }
     });
+    pat = await Patient.findOne({ email: req.body.email });
+    console.log(pat);
+    res.status(200).send(pat);
   }
 });
- // console.log('/////////////////////////////////////////////////////////////');
+// console.log('/////////////////////////////////////////////////////////////');
 
 signup.get("/patient/verify/", async (req, res) => {
   const id = req.query;
@@ -139,7 +140,7 @@ signup.get("/doctor/verify/:id", async (req, res) => {
   } else {
     res.status(404).send("Not found");
   }
-}); 
+});
 
 ////////////////////// Appoitnments//////////////////////
 
@@ -151,10 +152,9 @@ signup.post("/appointment", async (req, res) => {
   if (dbPost == " ") {
     res.status(404).send("err");
   } else {
-   
     Appoint.create(dbPost, (err, data) => {
       if (err) {
-        res.status(500)
+        res.status(500);
       } else {
         res.status(200);
         // res.redirect("/");

@@ -8,26 +8,31 @@ import PatientNav from "../../components/PatientNav";
 import { useSelector, useDispatch } from "react-redux";
 import { delSession } from "../../redux/actions/sessionActions";
 import Router from "next/router";
-import { useState } from "react";
 
 const PatientDashboard = (props) => {
-  const [object, setObject] = useState({});
-  const [oppointment, setOppointment] = useState([])
   const session = useSelector((state) => state);
-  console.log(session);
+
   const dispatch = useDispatch();
-  const logout =  () => {
+
+  const logout = () => {
     console.log("logout");
     dispatch(delSession());
     Router.push("/");
+    return <h4>logging you out...</h4>;
   };
-  
-  if (!session.data.login) {
+
+  const data = session.data.login;
+
+  if (data) {
+    if (data.isDoctor === true) {
+      Router.push("/doctors");
+      return <h4>Redirecting you to doctor's page</h4>;
+    }
+  } else {
     Router.push("/");
-    return null;
+    return <h4>Redirecting to home page.</h4>
   }
-setObject(session.data.login)
- setOppointment{[]} 
+  
   return (
     <Container fluid>
       <Row>
@@ -35,7 +40,7 @@ setObject(session.data.login)
       </Row>
       <Row>
         <Col md={3}>
-          <PatientInfo />
+          <PatientInfo data={data}/>
         </Col>
         <Col md={9}>
           <Row>
@@ -50,7 +55,7 @@ setObject(session.data.login)
             </Col>
           </Row>
           <Row>
-            <PatientAppointment oppointment= {oppointment}></PatientAppointment>
+            <PatientAppointment ></PatientAppointment>
           </Row>
         </Col>
       </Row>

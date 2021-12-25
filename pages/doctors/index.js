@@ -9,23 +9,28 @@ import { delSession } from "../../redux/actions/sessionActions";
 import { useState } from "react";
 
 function Doctor() {
-  const [object, setObject] = useState({});
+  //const [object, setObject] = useState();
   const session = useSelector((state) => state);
-  console.log(session);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!session.data.login) {
-      Router.push("/");
-      return <h4>logging you out....</h4>;
-    }
-  }, []);
-  setObject(session.data.login);
   const logout = () => {
     console.log("logout");
     dispatch(delSession());
     Router.push("/");
+    return <h4>logging you out...</h4>
   };
+
+  const data = session.data.login;
+
+  if (data) {
+    if (data.isPatient === true) {
+      Router.push("/patients");
+      return <h4>Redirecting you to patient's page</h4>;
+    }
+  } else {
+    Router.push("/");
+    return <h4>Redirecting to home page.</h4>;
+  }
 
   return (
     <>
@@ -35,12 +40,13 @@ function Doctor() {
         </Row>
         <Row>
           <Col md={4}>
-            <DoctorInfo className="m-5" name={object.name} len = {object.appointments} />
+            <DoctorInfo className="m-5" data={data} />
           </Col>
           <Col md={8}>
             <Row>
-              <Col><AppointmentList className="m-5"/> </Col>
-            
+              <Col>
+                <AppointmentList className="m-5" data={data} />{" "}
+              </Col>
             </Row>
           </Col>
         </Row>
