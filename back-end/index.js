@@ -85,6 +85,7 @@ app.use(function (req, res, next) {
   next();
 });
 app.use("/", require("./routers/index"));
+app.use("/doctor", require("./routers/doctor"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
 // app.use("/file", upload);

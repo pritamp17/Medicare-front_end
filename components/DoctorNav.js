@@ -11,7 +11,7 @@ const DoctorNav = (props) => {
     <>
       <Navbar collapseOnSelect expand="lg" bg="danger" variant="dark" className="justify-content-center">
         <Container fluid>
-          <Navbar.Brand href="/patients" className="fs-4 fw-bold m-auto">
+          <Navbar.Brand href="/doctors" className="fs-4 fw-bold m-auto">
             <LocalHospitalIcon color="success" fontSize="large" className="mx-1" />
             Doctor's DashBoard
           </Navbar.Brand>
