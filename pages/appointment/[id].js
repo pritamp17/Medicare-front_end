@@ -68,7 +68,8 @@ function signUp() {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
       })
-      Router.push("/doctors");
+      alert("Appointment booked successfully");
+      Router.back();
   };
 
   return (
