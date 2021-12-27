@@ -1,8 +1,30 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
+import * as axios from "axios";
 import { Card, ListGroup } from "react-bootstrap";
 
-const PatientAppointment = (props) => {
-  // console.log(props.oppointment);
+const PatientAppointment = ({ appointments }) => {
+  const [data, setData] = useState([]);
+  console.log(appointments);
+
+
+  const empty = () => {
+    <ListGroup.Item className="p-4">
+      <div>
+        <h6 className="text-primary">No appointments made yet.</h6>
+      </div>
+    </ListGroup.Item>;
+  };
+
+  useEffect(() => {
+    axios.post("http://localhost:9000/appointment/fetch", appointments).then((response) => {
+      console.log(response.data)
+      setData(response.data);
+    });
+  }, []);
+
+
+
   return (
     <>
       <Card className="shadow p-3 mb-5 bg-body rounded">
@@ -14,36 +36,21 @@ const PatientAppointment = (props) => {
         </Card.Header>
 
         <ListGroup variant="flush">
-
-
-          <ListGroup.Item className="p-4">
-            <div>
-              <h6 className="text-primary">Dr. John Duarte</h6>
-              <p className="h6 text-muted">
-                <span className="fw-bold">Appointment date: </span>
-                <span>2020-12-10</span>
-              </p>
-              <p className="h6 text-muted">
-                <span className="fw-bold">Time: </span>
-                <span>17:50:00</span>
-              </p>
-            </div>
-          </ListGroup.Item>
-
-          <ListGroup.Item className="p-4">
-            <div>
-              <h6 className="text-primary">Dr. John Duarte</h6>
-              <p className="h6 text-muted">
-                <span className="fw-bold">Appointment date: </span>
-                <span>2020-12-10</span>
-              </p>
-              <p className="h6 text-muted">
-                <span className="fw-bold">Time: </span>
-                <span>17:50:00</span>
-              </p>
-            </div>
-          </ListGroup.Item>
-          
+          {data.map((item) => (
+            <ListGroup.Item className="p-4">
+              <div>
+                <h6 className="text-primary">Dr. {(item.doctor_name).toUpperCase()}</h6>
+                <p className="h6 text-muted">
+                  <span className="fw-bold">Appointment date: </span>
+                  <span>{item.date}</span>
+                </p>
+                <p className="h6 text-muted">
+                  <span className="fw-bold">Time: </span>
+                  <span>{item.time}</span>
+                </p>
+              </div>
+            </ListGroup.Item>
+          ))}
         </ListGroup>
       </Card>
     </>

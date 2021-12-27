@@ -36,7 +36,7 @@ function Doctor() {
     <>
       <Container fluid>
         <Row>
-          <DoctorNav logout={logout} />
+          <DoctorNav logout={logout} data={data} />
         </Row>
         <Row>
           <Col md={4}>
@@ -45,7 +45,7 @@ function Doctor() {
           <Col md={8}>
             <Row>
               <Col>
-                <AppointmentList className="m-5" data={data} />{" "}
+                <AppointmentList className="m-5" appointments={data.appointments} />{" "}
               </Col>
             </Row>
           </Col>

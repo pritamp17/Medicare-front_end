@@ -68,7 +68,8 @@ const EditPatientInfo = (props) => {
       })
       .then((res) => {
         console.log(res);
-        dispatch(getSession({...res.data, isPatient: true, isDoctor: false}));
+        dispatch(getSession({ ...res.data, isPatient: true, isDoctor: false }));
+        props.handleClose();
         Router.push("/patients");
       });
   };

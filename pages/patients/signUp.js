@@ -23,7 +23,7 @@ function signUp() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [Name, setName] = useState("");
-  const [Gender, setGender] = useState("");
+  const [Gender, setGender] = useState("Male");
   const [age, setAge] = useState();
   const [mobile, setMobile] = useState();
   const [photo, setPhoto] = useState("");
@@ -147,7 +147,7 @@ function signUp() {
             </Row>
             <Row className="mb-3">
               <FloatingLabel controlId="floatingSelect" label="Gender" as={Col}>
-                <Form.Select aria-label="Floating label select example" onChange={(e) => setGender(e.target.value)}>
+                <Form.Select aria-label="Floating label select example" defaultValue="Male" onChange={(e) => setGender(e.target.value)}>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Gender Neutral">Gender Neutral</option>
