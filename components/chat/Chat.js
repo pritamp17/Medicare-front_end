@@ -84,7 +84,7 @@ function Chat({doc_email,pat_email}) {
       const chat__messages_p = {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         padding: '20px',
         color: 'black',
         // -ms-overflow-style: 'none',
@@ -94,7 +94,7 @@ function Chat({doc_email,pat_email}) {
       const chat__messages_d = {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         padding: '20px',
         color: 'black',
         // -ms-overflow-style: 'none',
