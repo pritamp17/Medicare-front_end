@@ -58,9 +58,26 @@ conn.once("open", () => {
     gfs.collection('images') 
 });
 
+/// search function 
+app.get('/users',(req,res,next)=>{
+  const searchField = req.query.name
+  // console.log(searchField);
+  Doctor.find({name:{$regex: searchField,$options:'$i'}})
+  .then(data=>{
+    res.send(data);
+    console.log(data)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+})
+
+
+
 /// middlewares
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 } }));
 const passportInit = require("./config/passport");
+const { useReducer } = require("react");
 passportInit(passport);
 app.use(passport.initialize());
 app.use(passport.session());
@@ -88,6 +105,7 @@ app.use("/", require("./routers/index"));
 app.use("/doctor", require("./routers/doctor"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
+app.use("/appointment", require("./routers/appointment"));
 // app.use("/file", upload);
 // **** doctor search 
 

@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import { sessionReducer } from "./sessionReducer";
+import { appointmentReducer } from "./appointmentReducer";
 import { DELETE_SESSION } from "../constants/sessionConstants";
 const reducer = combineReducers({
   data: sessionReducer,
+  appointments: appointmentReducer,
 });
 
 const rootReducer = (state, action) => {

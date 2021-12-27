@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 
 function signUp() {
+  
   const [patient_id, setPatient_id] = useState("");
   const [doctor_id, setDoctor_id] = useState("");
   const [time, setTime] = useState("");

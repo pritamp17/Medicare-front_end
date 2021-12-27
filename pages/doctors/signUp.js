@@ -28,7 +28,7 @@ function signUp() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState();
-  const [Gender, setGender] = useState("");
+  const [Gender, setGender] = useState("Male");
   const [photo, setPhoto] = useState("");
 
   const handleChange = (e) => {
@@ -163,11 +163,11 @@ function signUp() {
           </Row>
 
           <FloatingLabel controlId="floatingSelect" label="Gender" className="mb-3">
-            <Form.Select aria-label="Floating label select example" onChange={(e) => setGender(e.target.value)}>
+            <Form.Select aria-label="Floating label select example" defaultValue="Male" onChange={(e) => setGender(e.target.value)}>
               {/* <option>Gender</option> */}
-              <option value="1">Male</option>
-              <option value="2">Female</option>
-              <option value="3">Gender Neutral</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Gender Neutral">Gender Neutral</option>
             </Form.Select>
           </FloatingLabel>
 

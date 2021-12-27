@@ -44,6 +44,7 @@ login.post("/patient", (req, res, next) => {
           return next(err);
         }
         if (!user) {
+          console.log("here")
           res.status(404).send(new Error("User is not correct"));
         }
         const patient = await Patient.findOne({ email: user.email });

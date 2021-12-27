@@ -1,36 +1,44 @@
 import React from "react";
 import { Card, ListGroup, Table } from "react-bootstrap";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Router from "next/router";
 
-export const AppointmentList = ({ data }) => {
-  const appointments = data.appointments;
+export const AppointmentList = ({ appointments }) => {
+  console.log(appointments);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.post("http://localhost:9000/appointment/fetch/", appointments).then((response) => {
+      console.log(response.data);
+      setData(response.data);
+    });
+  }, []);
+
   return (
     <Wrapper1>
       <div>
-        <h3>Recent Appointments</h3>
+        <h3 className="pt-5">Recent Appointments</h3>
       </div>
       <Wrapper>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
-              <th>#</th>
               <th>Patient Name</th>
               <th>Date</th>
               <th>Link</th>
             </tr>
           </thead>
           <tbody>
-            {appointments.map((app, i) => (
-              <td obj={app} key={i} />
+            {data.map((app) => (
+              <tr>
+                <td>{app.patient_name}</td>
+                <td>{app.date}</td>
+                <a onClick={() => Router.push(`http://localhost:3000/appointment/${app._id}`)}>
+                  <td>Click here to go to appointment</td>
+                </a>
+              </tr>
             ))}
-
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            
           </tbody>
         </Table>
       </Wrapper>
@@ -43,7 +51,6 @@ const Wrapper = styled.div`
   overflow: auto;
   align-items: center;
   display: flex;
-  padding-top: 300px;
 `;
 
 const Wrapper1 = styled.div``;

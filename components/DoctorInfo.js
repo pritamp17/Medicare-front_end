@@ -4,7 +4,7 @@ import { Card, Row, Col } from "react-bootstrap";
 const DoctorInfo = ({ data }) => {
   return (
     <>
-      <Card className="p-2 m-5">
+      <Card className="p-2 m-4">
         <Card.Img className="rounded p-5 pb-0" variant="top" src="/doctor.jpg" />
         <Card.Body>
           <Card.Title className="fw-bolder text-primary text-center m-0 p-0">Dr. {data.name}</Card.Title>
@@ -14,6 +14,10 @@ const DoctorInfo = ({ data }) => {
             <Col>
               <p className="fw-bolder fs-4 text-primary m-0 p-0">{data.appointments.length}</p>
               <p className="m-0 p-0">Total Patient</p>
+            </Col>
+            <Col>
+              <p className="fw-bolder fs-4 text-primary m-0 p-0">{data.appointments.length}</p>
+              <p className="m-0 p-0">Total Appointments</p>
             </Col>
           </Row>
         </Card.Body>
