@@ -9,7 +9,7 @@ const SearchResult = ({data})=>
         <>
           <div>
           <Card>
-         <Card.Body>{data}</Card.Body>
+         <Card.Body>{data[0]?data[0].name:null}</Card.Body>
          </Card>
 
           </div>
