@@ -2,19 +2,29 @@ const express = require("express");
 const doctor = express.Router();
 const Doctor = require("../Models/DoctorSchema");
 const Patient = require("../Models/PatientSchema");
-const Appoint = require("../Models/AppointmentSchema");
 const mongoose = require("mongoose");
 
-doctor.get("/:id", (req, res) => {
-  var ObjectId = mongoose.Types.ObjectId;
-  Doctor.findById(new ObjectId(req.params.id), (err, data) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+doctor.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const doc = await Doctor.findOne({ _id: id });
+    res.send(doc);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+doctor.post("/update", async (req, res) => {
+  const dbPost = req.body;
+  let doc = await Doctor.findOne({ email: dbPost.email });
+  doc.intro = dbPost.intro;
+  doc.mobile = dbPost.mobile;
+  doc.address = dbPost.address;
+  doc.city = dbPost.city;
+  doc.state = dbPost.state;
+  doc.zip = dbPost.zip;
+  await doc.save();
+  res.status(200).send(doc);
 });
 
 module.exports = doctor;

@@ -88,6 +88,7 @@ app.use("/", require("./routers/index"));
 app.use("/doctor", require("./routers/doctor"));
 app.use("/signup", require("./routers/signup"));
 app.use("/login", require("./routers/login"));
+app.use("/appointment", require("./routers/appointment"));
 // app.use("/file", upload);
 // **** doctor search 
 

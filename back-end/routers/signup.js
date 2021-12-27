@@ -28,7 +28,7 @@ signup.post("/doctor", async (req, res) => {
       if (err) {
         res.status(500).send(err);
       } else {
-        const link = "http://localhost:9000/signup/doctor/verify/" + hashedPassword;
+        const link = "http://localhost:9000/signup/doctor/verify/" + data._id;
         const html =
           `Hi there
                       <br/> Welcome to Medicare, we are very happy to invite you to our enlarged family.
@@ -65,7 +65,7 @@ signup.post("/patient", async (req, res) => {
       if (err) {
         res.status(500).redirect("/patients/signup");
       } else {
-        const link = "http://localhost:9000/signup/patient/verify/" + hashedPassword;
+        const link = "http://localhost:9000/signup/patient/verify/" + data._id;
         const html =
           `Hi there
                       <br/> Welcome to Medicare, we are very happy to invite you to our enlarged family.
@@ -111,10 +111,11 @@ signup.put("/patient/update", async (req, res) => {
 });
 // console.log('/////////////////////////////////////////////////////////////');
 
-signup.get("/patient/verify/", async (req, res) => {
-  const id = req.query;
-  const pat = await Patient.findOne({ password: id });
+signup.get("/patient/verify/:id", async (req, res) => {
+  const id = req.params.id;
   console.log(id);
+  const pat = await Patient.findOne({ _id: id });
+
   if (pat) {
     pat.isVerified = true;
     pat.save();
@@ -131,7 +132,7 @@ signup.get("/patient/verify/", async (req, res) => {
 signup.get("/doctor/verify/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
-  const doc = await Doctor.findOne({ password: id });
+  const doc = await Doctor.findOne({ _id: id });
   if (doc) {
     doc.isVerified = true;
     doc.save();

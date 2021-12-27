@@ -55,7 +55,7 @@ const PatientDashboard = (props) => {
             </Col>
           </Row>
           <Row>
-            <PatientAppointment ></PatientAppointment>
+            <PatientAppointment appointments={data ? data.appointments : null}></PatientAppointment>
           </Row>
         </Col>
       </Row>
