@@ -30,8 +30,8 @@ const PatientAppointment = ({ appointments }) => {
       <Card className="shadow p-3 mb-5 bg-body rounded">
         <Card.Header className="text-primary fw-bold fs-3">
           <span>Latest Appointments</span>
-          <a href="#" className="text-decoration-none text-secondary fw-light fs-6 ms-5 text-center">
-            Book your appointment
+          <a href="http://localhost:3000/patients/history" className="text-decoration-none text-secondary fw-light fs-6 ms-5 text-center">
+            See your medical history
           </a>
         </Card.Header>
 
@@ -39,7 +39,7 @@ const PatientAppointment = ({ appointments }) => {
           {data.map((item) => (
             <ListGroup.Item className="p-4">
               <div>
-                <h6 className="text-primary">Dr. {(item.doctor_name).toUpperCase()}</h6>
+                <h6 className="text-primary">Dr. {item.doctor_name.toUpperCase()}</h6>
                 <p className="h6 text-muted">
                   <span className="fw-bold">Appointment date: </span>
                   <span>{item.date}</span>

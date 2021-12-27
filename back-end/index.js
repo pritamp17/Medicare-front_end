@@ -59,18 +59,7 @@ conn.once("open", () => {
 });
 
 /// search function 
-app.get('/users',(req,res,next)=>{
-  const searchField = req.query.name
-  // console.log(searchField);
-  Doctor.find({name:{$regex: searchField,$options:'$i'}})
-  .then(data=>{
-    res.send(data);
-    console.log(data)
-  })
-  .catch(err=>{
-    console.log(err)
-  })
-})
+
 
 
 

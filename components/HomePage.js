@@ -1,13 +1,11 @@
 import * as React from "react";
 import {Container, Button, Card, Row, Col } from "react-bootstrap";
 import Header from '../components/Header'
-import Search from '../components/Search'
 
 const HomePage = () => (
      <React.Fragment>      
     
     <Header id='0'/>
-    <Search/>
     <Container>
       <cite className="text-center">
         <blockquote className="blockquote">

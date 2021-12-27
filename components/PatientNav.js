@@ -2,7 +2,7 @@ import * as React from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button, InputGroup } from "react-bootstrap";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-
+import Search from "./Search";
 const PatientNav = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
@@ -21,11 +21,12 @@ const PatientNav = (props) => {
           <Navbar.Collapse id="navbarScroll">
             <Form className="d-flex ms-auto">
               <InputGroup className="mb-2">
-                <FormControl type="search" placeholder="Find Doctor" aria-label="Search" />
+                <Search />
                 <InputGroup.Text className="me-2">
                   <PersonSearchIcon />
                 </InputGroup.Text>
               </InputGroup>
+              
               <Button type="submit" variant="outline-success" className="btn-primary text-light mb-2">
                 Search
               </Button>
