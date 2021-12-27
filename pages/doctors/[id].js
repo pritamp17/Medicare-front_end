@@ -5,25 +5,57 @@ import { useEffect } from "react";
 import * as axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import db from '../../components/chat/Firebase';
+import { useSelector, useDispatch } from "react-redux";
+import Router from "next/router";
+import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
-function home() {
+function home() { 
   const [data, setData] = useState({});
+  const [doc_email, setDoc_email] = useState("")
   const [oppointment, setOppointment] = useState([]);
+  const session = useSelector((state) => state);
+  const dispatch = useDispatch();
   const router = useRouter();
   const id = router.query.id;
-  console.log(id);
+  const doc_id = "61c1c1fe59620e6e0c28acc2"
+  // console.log(id);
+  let pat_data;
+  
   useEffect(() => {
     if (!router.isReady) return;
-    console.log(router.query.id);
-    axios.get(`http://localhost:9000/doctor/${id}`).then((response) => {
-      console.log(response.data);
-      setData(response.data);
-      //  console.log(object.appointments);
-      //setOppointment(object.appointments)
-      // console.log(oppointment);
+    if(router.query.id) {
+      axios.get(`http://localhost:9000/doctor/${id}`).then((response) => {
+      // console.log(response.data);
+       setData(response.data);
+     if(!response.data.email) {setDoc_email(response.data.email)}
+      // console.log(response.data.email);
+      //   console.log(doc_email);
     });
+ 
+    }
+      
+    
   }, [router.isReady]);
 
+  if(!session.data.login.id){
+  }else{
+   pat_data=session.data.login.email;
+  }
+   
+   console.log(router.query.id);
+      console.log((pat_data))
+      console.log(doc_email)
+  
+  const redirect = () =>{
+    // console.log(doc_email);
+    db.collection('messages').add({channelName:doc_email})
+    // db.collection('messages').doc(`${doc_id}`).add({channelName:`${pat_data._id}`})
+  Router.push(`/chat/${doc_id}`);
+  }
+  
   return (
     <>
       <Header id="5" />
@@ -36,11 +68,11 @@ function home() {
             <Card>
               <Card.Body>
                 <Card.Header>{data.name}</Card.Header>
-                <Card.Title className="my-2">{data.specialisation}</Card.Title>
+                <Card.Title className="my-2">specialisation</Card.Title>
                 <Card.Text>
                   <p>
                     <ul>
-                      <li>specialisation</li>
+                      <li> {data.specialisation}</li>
                     </ul>
                   </p>
                 </Card.Text>
@@ -87,8 +119,8 @@ function home() {
             </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="lg">
-              Directions
+            <Button variant="primary" size="lg" onClick={redirect} >
+              Chat
             </Button>
           </Col>
           <Col></Col>

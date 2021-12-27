@@ -1,5 +1,5 @@
-// import '../styles/globals.css'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import '../styles/chat.module.css'
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import configStore from "../redux/store";

@@ -12,4 +12,4 @@ export const delSession = () => {
 	return {
 		type: DELETE_SESSION,
 	}
-}
+} 
