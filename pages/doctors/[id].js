@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import { Row, Container, Col, Card, Button } from "react-bootstrap";
 import React from "react";
+import db from '../../components/chat/Firebase';
 import { useEffect } from "react";
 import * as axios from "axios";
 import { useState } from "react";
@@ -13,18 +14,21 @@ import { addBooking } from "../../redux/actions/appointmentActions";
 import PatientNav from "../../components/PatientNav";
 import { delSession } from "../../redux/actions/sessionActions";
 
+
 function home() {
   const [data, setData] = useState({});
+  const [doc_email, setDoc_email] = useState("")
   const router = useRouter();
   const dispatch = useDispatch();
   const id = router.query.id;
+  
   useEffect(() => {
     if (!router.isReady) return;
     console.log(router.query.id);
     console.log(id);
     axios.get(`http://localhost:9000/doctor/${id}`).then((response) => {
       setData(response.data);
-      //  console.log(object.appointments);
+      // if(!response.data.email) {setDoc_email(response.data.email)}
       //setOppointment(object.appointments)
       // console.log(oppointment);
     });
@@ -37,6 +41,13 @@ function home() {
   if (!user) {
     Router.push("/");
     return <h4>Redirecting to home page.</h4>;
+  }
+
+  const redirect = () =>{
+    // console.log(doc_email);
+    db.collection('messages').add({channelName:'pritampawar526@gmail.com'})
+    // db.collection('messages').doc(`${doc_id}`).add({channelName:`${pat_data._id}`})
+  Router.push(`/chat/${id}`);
   }
 
   const book = (e) => {
@@ -108,9 +119,9 @@ function home() {
             </Button>
           </Col>
           <Col>
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg"  onClick={redirect} >
               <DirectionsIcon fontSize="large" className="mx-1" />
-              Directions
+              Chat
             </Button>
           </Col>
           <Col></Col>
