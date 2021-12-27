@@ -26,11 +26,37 @@ appoint.post("/", async (req, res) => {
   });
 });
 
-appoint.post("/fetch", async (req, res) => {
-  console.log(req.body);
-  const obj = await Appointment.find({ _id: { $in: req.body } });
-  console.log(obj);
-  res.status(200).send(obj);
-})
+appoint.post("/save/:id", async (req, res) => {
+  const app = await Appointment.findOne({ _id: req.params.id });
+  const body = req.body;
+  app.symptoms = body.symptoms;
+  app.disease = body.disease;
+  app.prescription = body.prescription;
+  app.status = "completed";
+  await app.save();
+});
 
+appoint.post("/fetch", (req, res) => {
+  console.log(req.body);
+  Appointment.find({ _id: { $in: req.body } })
+    .sort({ date: 1 })
+    .exec((err, docs) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(docs);
+        res.status(200).send(docs);
+      }
+    });
+});
+
+appoint.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const obj = await Appointment.findOne({ _id: id });
+    res.status(200).send(obj);
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = appoint;
