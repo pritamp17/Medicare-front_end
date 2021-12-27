@@ -17,7 +17,7 @@ function Doctor() {
     console.log("logout");
     dispatch(delSession());
     Router.push("/");
-    return <h4>logging you out...</h4> 
+    return <h4>logging you out...</h4>
   };
 
   const data = session.data.login;

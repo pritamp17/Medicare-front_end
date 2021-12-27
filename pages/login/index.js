@@ -43,11 +43,10 @@ function login() {
     saveDocPost(postData);
     setDocEmail("");
     setDocPass("");
-  }; 
+  };
 
   const saveDocPost = async (postData) => {
-    try {
-      await axios
+    await axios
       .post("http://localhost:9000/login/doctor", postData, {
         headers: {
           accept: "applications/json",
@@ -61,10 +60,6 @@ function login() {
         dispatch(getSession(res.data));
         componentDidMount();
       });
-    } catch (err) {
-     console.log(err);
-    }
-    
   };
 
   const componentDidMount = () => {
