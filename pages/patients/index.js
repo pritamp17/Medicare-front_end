@@ -21,7 +21,7 @@ const PatientDashboard = (props) => {
     return <h4>logging you out...</h4>;
   };
 
-  const data = session.data.login; 
+  const data = session.data.login;
 
   if (data) {
     if (data.isDoctor === true) {

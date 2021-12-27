@@ -5,12 +5,6 @@ import { useEffect } from "react";
 import * as axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import db from '../../components/chat/Firebase';
-import { useSelector, useDispatch } from "react-redux";
-import Router from "next/router";
-import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,55 +13,22 @@ import { addBooking } from "../../redux/actions/appointmentActions";
 import PatientNav from "../../components/PatientNav";
 import { delSession } from "../../redux/actions/sessionActions";
 
-function home() { 
+function home() {
   const [data, setData] = useState({});
-
-  const [doc_email, setDoc_email] = useState("")
-  const [oppointment, setOppointment] = useState([]);
-  const session = useSelector((state) => state);
-  const dispatch = useDispatch();
   const router = useRouter();
   const dispatch = useDispatch();
   const id = router.query.id;
-
-//   const doc_id = "61c1c1fe59620e6e0c28acc2"
-  // console.log(id);
-  let pat_data;
-  
   useEffect(() => {
     if (!router.isReady) return;
-    if(router.query.id) {
-      axios.get(`http://localhost:9000/doctor/${id}`).then((response) => {
-      // console.log(response.data);
-       setData(response.data);
-     if(!response.data.email) {setDoc_email(response.data.email)}
-      // console.log(response.data.email);
-      //   console.log(doc_email);
-
+    console.log(router.query.id);
+    console.log(id);
+    axios.get(`http://localhost:9000/doctor/${id}`).then((response) => {
+      setData(response.data);
+      //  console.log(object.appointments);
+      //setOppointment(object.appointments)
+      // console.log(oppointment);
     });
- 
-    }
-      
-    
   }, [router.isReady]);
-
-
-  if(!session.data.login.id){
-  }else{
-   pat_data=session.data.login.email;
-  }
-   
-//    console.log(router.query.id);
-//       console.log((pat_data))
-//       console.log(doc_email)
-  
-  const redirect = () =>{
-    // console.log(doc_email);
-    db.collection('messages').add({channelName:doc_email})
-    // db.collection('messages').doc(`${doc_id}`).add({channelName:`${pat_data._id}`})
-  Router.push(`/chat/${doc_id}`);
-  }
-  
 
   console.log(id);
 
@@ -96,7 +57,6 @@ function home() {
 
   console.log(data);
 
-
   return (
     <>
       <Container fluid>
@@ -114,11 +74,11 @@ function home() {
             <Card>
               <Card.Body>
                 <Card.Header>{data.name}</Card.Header>
-                <Card.Title className="my-2">specialisation</Card.Title>
+                <Card.Title className="my-2">{data.specialisation}</Card.Title>
                 <Card.Text>
                   <p>
                     <ul>
-                      <li> {data.specialisation}</li>
+                      <li>specialisation</li>
                     </ul>
                   </p>
                 </Card.Text>
@@ -148,10 +108,9 @@ function home() {
             </Button>
           </Col>
           <Col>
-
-            <Button variant="primary" size="lg" onClick={redirect} >
-              Chat
-
+            <Button variant="primary" size="lg">
+              <DirectionsIcon fontSize="large" className="mx-1" />
+              Directions
             </Button>
           </Col>
           <Col></Col>
