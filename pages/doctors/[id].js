@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import { Row, Container, Col, Card, Button } from "react-bootstrap";
+import { Row, Container, Col, Card, Button, ListGroup, ListGroupItem } from "react-bootstrap";
 import React from "react";
 import db from '../../components/chat/Firebase';
 import { useEffect } from "react";
@@ -84,14 +84,13 @@ function home() {
           <Col>
             <Card>
               <Card.Body>
-                <Card.Header>{data.name}</Card.Header>
-                <Card.Title className="my-2">{data.specialisation}</Card.Title>
+                <Card.Title className="my-2">{data.name}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">{data.specialisation}</Card.Subtitle>
                 <Card.Text>
-                  <p>
-                    <ul>
-                      <li>specialisation</li>
-                    </ul>
-                  </p>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem>{data.mobile}</ListGroupItem>
+                    <ListGroupItem>{data.address}, {data.city}, {data.state}</ListGroupItem>
+                  </ListGroup>
                 </Card.Text>
               </Card.Body>
             </Card>
