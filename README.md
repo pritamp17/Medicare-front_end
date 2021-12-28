@@ -11,7 +11,7 @@ A web-App that allows doctor and patient to connect online.
 -  Patients can book doctor's Appointments.
 -  Patient Located at remote locations can connect doctors present at metro cities.
 ### Doctors
-- Doctors can reate account and login to his/her account.
+- Doctors can create account and login to his/her account.
 - Doctors can update their profile once they are logged in to thier account
 - Doctors can check and confirm appointment sent by Patients.
 - Doctors can check recent oppointments.
