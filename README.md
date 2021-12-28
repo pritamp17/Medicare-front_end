@@ -22,9 +22,7 @@ A web-App that allows doctor and patient to connect online.
 - MongoDB, Firebase
 - React-Bootstrap, Material-UI
 ### Getting Started
-
 First, run the development server:
-
 ```bash
 npm run dev
 ```
@@ -33,7 +31,5 @@ New tab
 cd back-end
 npm start
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 Vedio Presentation Link [Medicare](https://drive.google.com/file/d/1wE6aRR-SmopQGpRAjXksmFLcqhdLKN_g/view?usp=sharing)
