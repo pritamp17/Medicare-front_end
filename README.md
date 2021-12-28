@@ -21,9 +21,6 @@ A web-App that allows doctor and patient to connect online.
 - NodeJS , ExpressJS
 - MongoDB, Firebase
 - React-Bootstrap, Material-UI
-
-
-
 ### Getting Started
 
 First, run the development server:
