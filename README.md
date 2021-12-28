@@ -3,7 +3,7 @@
 A web-App that allows doctor and patient to connect online.
 ## Features
 ### Patients
--  Patients can reate account and login to his/her account.
+-  Patients can create account and login to his/her account.
 -  Patients can update their profile once they are logged in to thier account
 -  Patients can search for doctors
 -  Patients can check searched doctors information like total patients treated by doctor and doctor rating 
