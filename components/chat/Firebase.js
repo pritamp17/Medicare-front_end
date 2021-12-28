@@ -1,9 +1,5 @@
-//  import firebase from "firebase";
-//  import { initializeApp } from "firebase/app";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-// import * as firebase from "firebase";
-
 const firebaseConfig = {
      apiKey: "AIzaSyANM9PYBK-4KcvZkJ7iY62oE_COjJKq8DM",
     authDomain: "medicare-chat-74db9.firebaseapp.com",
