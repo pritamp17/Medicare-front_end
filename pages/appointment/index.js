@@ -60,13 +60,14 @@ const index = () => {
     return <h4>logging you out...</h4>;
   };
 
-  return ( 
+  return (
     <div>
       <Container fluid>
         <Row>
           <PatientNav className="mb-2" logout={logout} />
         </Row>
         <Row className="p-5">
+          <h3 className="text-center p-2">Book an appointment</h3>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Patient Id</Form.Label>

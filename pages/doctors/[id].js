@@ -45,7 +45,7 @@ function home() {
 
   const redirect = () =>{
     // console.log(doc_email);
-    db.collection('messages').add({channelName:'pritampawar526@gmail.com'})
+    db.collection('messages').add({channelName:'satya.20192079@mnnit.ac.in'})
     // db.collection('messages').doc(`${doc_id}`).add({channelName:`${pat_data._id}`})
   Router.push(`/chat/${id}`);
   }

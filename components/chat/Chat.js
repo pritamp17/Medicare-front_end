@@ -27,7 +27,7 @@ function Chat({doc_email,pat_email}) {
            if(response.data.email) {setDoc(response.data)}
           });
 
-          db.collection('messages').doc('pritampawar526@gmail.com').collection('pritampawar625@gmail.com').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+          db.collection('messages').doc('satya.20192079@mnnit.ac.in').collection('satty9509@gmail.com').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
               setMessages(snapshot.docs.map(doc => doc.data()))
           })
 
@@ -47,12 +47,11 @@ function Chat({doc_email,pat_email}) {
 
     const sendMessages=e=>{
         e.preventDefault();
-        db.collection('messages').doc('pritampawar526@gmail.com').collection('pritampawar625@gmail.com').
-        add({
-            message:input,
-             user: session.data.login.name,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        })
+        db.collection("messages").doc("satya.20192079@mnnit.ac.in").collection("satty9509@gmail.com").add({
+          message: input,
+          user: session.data.login.name,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
 
         setInput("");
     }
