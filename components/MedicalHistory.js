@@ -18,6 +18,7 @@ const MedicalHistory = ({ appointments }) => {
   return (
     <Container fluid>
       <PatientNav />
+      <h3 className="text-center p-2">Your medical history</h3>
       <Table className="table mt-5">
         <thead className="table-dark">
           <tr>
@@ -34,7 +35,7 @@ const MedicalHistory = ({ appointments }) => {
         <tbody>
           {data.map((item, i) => (
             <tr>
-              <td>{i+1}</td>
+              <td>{i + 1}</td>
               <td>{item.doctor_name}</td>
               <td>{item.date}</td>
               <td>{item.time}</td>

@@ -77,6 +77,7 @@ function signUp() {
       <Header id="2" />;
       <wrapper>
         <Container>
+          <h3 className="text-center p-2">Diagnosis</h3>
           <Form>
             <Row className="mb-3">
               <Form.Group className="mb-3" as={Col} controlId="formGridName">

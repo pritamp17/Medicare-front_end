@@ -99,6 +99,7 @@ function signUp() {
     <>
       <Header id="1" />
       <Container className="border border-danger border-4">
+        <h3 className="text-center p-2">Signup for doctor</h3>
         <Form className="my-5">
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formGridEmail">
