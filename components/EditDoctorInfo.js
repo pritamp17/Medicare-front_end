@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Offcanvas, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getSession, delSession } from "../redux/actions/sessionActions";
+import FileBase64 from "react-file-base64";
 import axios from "axios";
 
 const EditDoctorInfo = (props) => {
@@ -16,7 +17,7 @@ const EditDoctorInfo = (props) => {
   const [city, setCity] = useState(data.city);
   const [state, setState] = useState(data.state);
   const [zip, setZip] = useState(data.zip);
-
+  const [photo, setPhoto] = useState(data.profile_pic);
   const dispatch = useDispatch();
 
   const sendMessage = async (e) => {
@@ -30,6 +31,7 @@ const EditDoctorInfo = (props) => {
       state: state,
       zip: zip,
       intro: intro,
+      profile_pic: photo,
     };
 
     setMobile(mobile);
@@ -38,6 +40,7 @@ const EditDoctorInfo = (props) => {
     setState(state);
     setZip(zip);
     setIntro(intro);
+    setPhoto(photo);
 
     savePost(postData);
   };
@@ -90,6 +93,7 @@ const EditDoctorInfo = (props) => {
               <Form.Label>Quick intro</Form.Label>
               <Form.Control as="textarea" rows={5} placeholder="Give a quick intro" defaultValue={data.intro} onChange={(e) => setIntro(e.target.value)} />
             </Form.Group>
+            <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setPhoto(base64)} />
             <Button variant="primary" type="submit" onClick={sendMessage}>
               Submit
             </Button>

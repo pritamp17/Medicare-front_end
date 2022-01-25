@@ -5,6 +5,7 @@ import Router from "next/router";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
+import FileBase64 from "react-file-base64";
 import { Doctor } from "../doctors/index";
 import { PatientDashboard } from "../patients/index";
 
@@ -41,7 +42,7 @@ function signUp() {
       password: Password,
       name: Name,
       age: age,
-      profile_pic: "https://imgur.com/yDuzhBE",
+      profile_pic: photo,
       mobile: mobile,
       gender: Gender,
       Address: Address,
@@ -160,10 +161,10 @@ function signUp() {
               </Form.Group>
             </Row>
 
-            {/* <Form.Group controlId="formFileSm" className="mb-3">
-              <Form.Label>Choose Profile Photo</Form.Label>
-              <Form.Control type="file" size="sm"  onChange={handleChange} />
-            </Form.Group> */}
+            <Form.Group controlId="formFileSm" className="mb-3">
+              <Form.Label className="me-5">Profile picture</Form.Label>
+              <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setPhoto(base64)} />
+            </Form.Group>
           </Form>
           <Button variant="primary" type="submit" className="md-3" onClick={sendMessage}>
             Sign Me Up
