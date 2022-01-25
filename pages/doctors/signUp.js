@@ -4,6 +4,8 @@ import Router from "next/router";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import axios from "../api/BaseApi";
+import FileBase64 from "react-file-base64";
+
 import { useSelector } from "react-redux";
 function signUp() {
   const session = useSelector((state) => state);
@@ -51,8 +53,8 @@ function signUp() {
       zip: zip,
       specialisation: Specialization,
       work_experience: workexp,
-      proof_of_experience: "",
-      profile_pic: "https://imgur.com/72E2gze",
+      proof_of_experience: proof,
+      profile_pic: photo,
       mobile: mobile,
     };
     console.log(postData);
@@ -136,10 +138,10 @@ function signUp() {
             </Form.Group>
           </Row>
 
-          {/* <Form.Group controlId="formFileSm" className="mb-3">
-              <Form.Label>Please Upload proof of Specialization </Form.Label>
-              <Form.Control type="file" size="sm" onChange={e => setProof(e.target.value)} />
-            </Form.Group> */}
+          <Form.Group controlId="formFileSm" className="mb-3">
+            <Form.Label className="me-5">Please Upload proof of Specialization </Form.Label>
+            <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setProof(base64)} />
+          </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGridAddress1">
             <Form.Label>Address</Form.Label>
@@ -171,11 +173,10 @@ function signUp() {
               <option value="Gender Neutral">Gender Neutral</option>
             </Form.Select>
           </FloatingLabel>
-
-          {/* <Form.Group controlId="formFileSm" className="mb-3">
-              <Form.Label>Choose Profile Photo</Form.Label>
-              <Form.Control type="file" size="sm" onChange={handleChange} />
-            </Form.Group> */}
+          <Form.Group className="mb-3" controlId="profilepic">
+            <Form.Label className="me-5">Profile picture</Form.Label>
+            <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setPhoto(base64)} />
+          </Form.Group>
         </Form>
         <Button variant="primary" type="submit" className="md-3" onClick={sendMessage}>
           Sign Me Up

@@ -23,6 +23,7 @@ doctor.post("/update", async (req, res) => {
   doc.city = dbPost.city;
   doc.state = dbPost.state;
   doc.zip = dbPost.zip;
+  doc.profile_pic = dbPost.profile_pic;
   await doc.save();
   res.status(200).send(doc);
 });
