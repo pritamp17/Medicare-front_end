@@ -32,4 +32,4 @@ cd back-end
 npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-Vedio Presentation Link [Medicare](https://drive.google.com/file/d/1wE6aRR-SmopQGpRAjXksmFLcqhdLKN_g/view?usp=sharing)
+Video Presentation Link [Medicare](https://drive.google.com/file/d/1wE6aRR-SmopQGpRAjXksmFLcqhdLKN_g/view?usp=sharing)
